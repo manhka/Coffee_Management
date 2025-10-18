@@ -1,12 +1,15 @@
 package com.app.coffeemanagementapplication.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.coffeemanagementapplication.activities.ProductDetailActivity;
 import com.app.coffeemanagementapplication.databinding.ItemProductBinding;
 import com.app.coffeemanagementapplication.models.ProductRating;
 import com.bumptech.glide.Glide;
@@ -46,6 +49,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 .load(pr.product.getImageUrl())
                 .placeholder(com.app.coffeemanagementapplication.R.drawable.ic_launcher_background)
                 .into(holder.binding.imgProduct);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("productId", pr.product.getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -60,5 +71,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+    public void updateList(List<ProductRating> newList) {
+        this.productRatings.clear();
+        this.productRatings.addAll(newList);
+        notifyDataSetChanged();
     }
 }

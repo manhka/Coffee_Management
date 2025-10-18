@@ -29,4 +29,9 @@ public interface IProductDao {
 
     @Query("DELETE FROM Products WHERE id = :id")
     void deleteProductById(int id);
+    @Query("SELECT * FROM Products " +
+            "WHERE (:name IS NULL OR name LIKE '%' || :name || '%') " +
+            "AND (:categoryId IS NULL OR categoryId = :categoryId) " +
+            "ORDER BY price ASC")
+    List<Product> searchProducts(String name, Integer categoryId);
 }

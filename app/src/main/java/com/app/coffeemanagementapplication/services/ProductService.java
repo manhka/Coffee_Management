@@ -44,4 +44,8 @@ import java.util.List;
         public void deleteProductById(int id) {
             productDao.deleteProductById(id);
         }
+        @Override
+        public List<Product> searchProducts(String name, Integer categoryId) {
+            return productDao.searchProducts(name, categoryId);
+        }
     }

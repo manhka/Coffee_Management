@@ -9,15 +9,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.coffeemanagementapplication.databinding.ItemCategoryBinding;
+import com.app.coffeemanagementapplication.models.Category;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    private final List<String> items;
+    private final List<Category> categories;
     private int selectedPosition = 0;
-    public CategoryAdapter(List<String> items) {
-        this.items = items;
+    private OnCategoryClickListener listener;
+
+    public CategoryAdapter(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public interface OnCategoryClickListener {
+        void onCategoryClick(Category category); // trả ra Category thật
+    }
+
+    public void setOnCategoryClickListener(OnCategoryClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -33,33 +44,37 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        String text = items.get(position);
-        holder.binding.txtCategory.setText(text);
+        Category category = categories.get(position);
+        holder.binding.txtCategory.setText(category.getName());
+
+        // Highlight item được chọn
         if (position == selectedPosition) {
-            // Được chọn → màu đen, có gạch chân
-            holder.binding.txtCategory.setTextColor(Color.parseColor("#000000"));
+            holder.binding.txtCategory.setTextColor(Color.BLACK);
             holder.binding.txtCategory.setPaintFlags(
                     holder.binding.txtCategory.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG
             );
         } else {
-            // Không chọn → màu xám, không gạch chân
             holder.binding.txtCategory.setTextColor(Color.parseColor("#9E9E9E"));
             holder.binding.txtCategory.setPaintFlags(
                     holder.binding.txtCategory.getPaintFlags() & (~Paint.UNDERLINE_TEXT_FLAG)
             );
         }
-        // 🔹 Sự kiện click để chọn item
+
         holder.binding.getRoot().setOnClickListener(v -> {
             int oldPosition = selectedPosition;
             selectedPosition = holder.getAdapterPosition();
             notifyItemChanged(oldPosition);
             notifyItemChanged(selectedPosition);
+
+            if (listener != null) {
+                listener.onCategoryClick(category);
+            }
         });
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return categories.size();
     }
 
     static class CategoryViewHolder extends RecyclerView.ViewHolder {

@@ -7,38 +7,62 @@ import androidx.room.PrimaryKey;
 @Entity(
         tableName = "OrderItems",
         foreignKeys = {
-                @ForeignKey(entity = Order.class, parentColumns = "id", childColumns = "orderId"),
-                @ForeignKey(entity = Product.class, parentColumns = "id", childColumns = "productId")
+                @ForeignKey(
+                        entity = Order.class,
+                        parentColumns = "id",
+                        childColumns = "orderId",
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Product.class,
+                        parentColumns = "id",
+                        childColumns = "productId",
+                        onDelete = ForeignKey.CASCADE
+                )
         }
 )
 public class OrderItem {
+
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    private int id;
 
-    public int orderId;
-    public int productId;
-    public int quantity;
-    public double unitPrice;
-    public double subtotal;
-    public String customizationNote;
+    private int orderId;
+    private int productId;
+    private int quantity;
 
-    public OrderItem() {
-    }
+    private double unitPrice;
+    private double subtotal;
 
-    public OrderItem(int id, int orderId, int productId, int quantity, double unitPrice, double subtotal, String customizationNote) {
-        this.id = id;
+    private String temperature; // "Nóng" hoặc "Lạnh"
+    private String size;        // "Nhỏ", "Vừa", "Lớn"
+    private String sugar;       // "Ít", "Vừa", "Nhiều"
+    private String ice;         // "Ít", "Vừa", "Nhiều"
+
+    // Ghi chú thêm của khách (nếu có)
+    private String note;
+
+    // 🔹 Constructors
+    public OrderItem() {}
+
+    public OrderItem(int orderId, int productId, int quantity,
+                     double unitPrice, double subtotal,
+                     String temperature, String size, String sugar, String ice, String note) {
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.subtotal = subtotal;
-        this.customizationNote = customizationNote;
+        this.temperature = temperature;
+        this.size = size;
+        this.sugar = sugar;
+        this.ice = ice;
+        this.note = note;
     }
 
+    // 🔹 Getter & Setter
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -46,7 +70,6 @@ public class OrderItem {
     public int getOrderId() {
         return orderId;
     }
-
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
@@ -54,7 +77,6 @@ public class OrderItem {
     public int getProductId() {
         return productId;
     }
-
     public void setProductId(int productId) {
         this.productId = productId;
     }
@@ -62,7 +84,6 @@ public class OrderItem {
     public int getQuantity() {
         return quantity;
     }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
@@ -70,7 +91,6 @@ public class OrderItem {
     public double getUnitPrice() {
         return unitPrice;
     }
-
     public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
@@ -78,16 +98,42 @@ public class OrderItem {
     public double getSubtotal() {
         return subtotal;
     }
-
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
     }
 
-    public String getCustomizationNote() {
-        return customizationNote;
+    public String getTemperature() {
+        return temperature;
+    }
+    public void setTemperature(String temperature) {
+        this.temperature = temperature;
     }
 
-    public void setCustomizationNote(String customizationNote) {
-        this.customizationNote = customizationNote;
+    public String getSize() {
+        return size;
+    }
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getSugar() {
+        return sugar;
+    }
+    public void setSugar(String sugar) {
+        this.sugar = sugar;
+    }
+
+    public String getIce() {
+        return ice;
+    }
+    public void setIce(String ice) {
+        this.ice = ice;
+    }
+
+    public String getNote() {
+        return note;
+    }
+    public void setNote(String note) {
+        this.note = note;
     }
 }

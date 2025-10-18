@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Khi được chọn -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#4CAF50"/> <!-- Màu nền khi chọn -->
+            <stroke android:width="2dp" android:color="#388E3C"/>
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+
+    <!-- Khi không được chọn -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF"/>
+            <stroke android:width="2dp" android:color="#BDBDBD"/>
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+</selector>

@@ -14,4 +14,6 @@ public interface IProductRepo {
     void updateProduct(Product product);
 
     void deleteProductById(int id);
+    List<Product> searchProducts(String name, Integer categoryId);
+
 }
