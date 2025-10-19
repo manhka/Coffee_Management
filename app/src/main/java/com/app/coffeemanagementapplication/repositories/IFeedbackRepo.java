@@ -11,5 +11,5 @@ public interface IFeedbackRepo {
     // các hàm liên quan đến product
     Float getAverageRatingByProduct(int productId);
     int getFeedbackCountByProduct(int productId);
-    List<Feedback> getFeedbackByProduct(int productId);
+    List<Feedback> getFeedbackByProductId(int productId);
 }

@@ -1,43 +1,502 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingTop="@dimen/padding_large"
     tools:context=".activities.ProductDetailActivity">
-    <RadioGroup
-        android:id="@+id/radioGroup"
+
+    <LinearLayout
+        android:id="@+id/layoutTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <RadioButton
-            android:id="@+id/radio_option1"
-            android:layout_width="120dp"
-            android:layout_height="48dp"
-            android:background="@drawable/custom_radio_button"
-            android:button="@null"
+        <ImageView
+            android:id="@+id/imvBtnBack"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/back_ic" />
+
+        <TextView
+            android:id="@+id/txtProductTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Tùy chọn 1"
+            android:text="Product Order"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_margin="8dp"
-            android:padding="8dp" />
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-        <RadioButton
-            android:id="@+id/radio_option2"
-            android:layout_width="120dp"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:clipToPadding="false"
+        android:paddingBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutBottomBar"
+        app:layout_constraintTop_toBottomOf="@id/layoutTitle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            tools:context=".activities.CustomerHomeActivity">
+
+            <ImageView
+                android:id="@+id/imvProductImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/product1"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtProductName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="14dp"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="2"
+                android:text="Tên sản phẩm rất dài sẽ bị cắt..."
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imvProductImage"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <TextView
+                android:id="@+id/txtProductPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="14dp"
+                android:gravity="end"
+                android:text="100.000đ"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imvProductImage"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <TextView
+                android:id="@+id/txtProductDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Mô tả sản phẩm ngắn gọn, nếu dài sẽ bị cắt..."
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtProductName" />
+
+            <LinearLayout
+                android:id="@+id/quantityContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="14dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtProductDescription">
+
+                <!-- Nút trừ -->
+                <TextView
+                    android:id="@+id/txtMinus"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_circle_gray"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <!-- Số lượng -->
+                <TextView
+                    android:id="@+id/txtQuantity"
+                    android:layout_width="50dp"
+                    android:layout_height="32dp"
+                    android:layout_marginHorizontal="6dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <!-- Nút cộng -->
+                <TextView
+                    android:id="@+id/txtPlus"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_circle_gray"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_rating_box"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/quantityContainer">
+
+                <!-- Icon sao -->
+                <ImageView
+
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/star_ic" />
+
+                <!-- Điểm đánh giá -->
+                <TextView
+                    android:id="@+id/txtRatingValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5.0"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Số lượng đánh giá -->
+                <TextView
+                    android:id="@+id/txtRatingCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text=" (1)"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <!-- Dấu gạch nối -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:text=" - "
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <!-- Text “Xếp hạng và đánh giá” -->
+                <TextView
+                    android:id="@+id/txtReviewLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xếp hạng và đánh giá"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+                <!-- Mũi tên -->
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/arrow_right_ic" />
+            </LinearLayout>
+            <!--options-->
+            <LinearLayout
+                android:id="@+id/layoutOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="14dp"
+                app:layout_constraintTop_toBottomOf="@id/layoutRating">
+
+                <!-- Tiêu đề -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Tùy chỉnh"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Độ uống -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="Độ uống"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/groupDrink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbDa"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_radio_button"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Đá"
+                        android:textColor="@color/filter_text_color"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rbNong"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_radio_button"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Nóng"
+                        android:textColor="@color/filter_text_color"
+                        android:textSize="16sp" />
+                </RadioGroup>
+
+                <!-- Kích thước -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Kích thước"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/groupSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:textColor="@color/filter_text_color">
+
+                    <RadioButton
+                        android:id="@+id/rbNho"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_radio_button"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Nhỏ"
+                        android:textColor="@color/filter_text_color"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rbVua"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_radio_button"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Vừa"
+                        android:textColor="@color/filter_text_color"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rbLon"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_radio_button"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Lớn"
+                        android:textColor="@color/filter_text_color"
+                        android:textSize="16sp" />
+                </RadioGroup>
+                <!-- Đường -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Đường"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/groupDuong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbBinhThuong"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_radio_button"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Bình Thường"
+                        android:textColor="@color/filter_text_color"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rbGiamBot"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_radio_button"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Giảm bớt"
+                        android:textColor="@color/filter_text_color"
+                        android:textSize="16sp" />
+
+
+                </RadioGroup>
+                <!-- Đá -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Đá"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/groupDa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbDuongBinhThuong"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_radio_button"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Bình Thường"
+                        android:textColor="@color/filter_text_color"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rbItDuong"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_radio_button"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="Ít Đường"
+                        android:textColor="@color/filter_text_color"
+                        android:textSize="16sp" />
+
+
+                </RadioGroup>
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/layoutBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Tổng tiền -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTotalLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng tiền"
+                android:textColor="#9B8A7B"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtTotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30.000vnd"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Nút thêm vào giỏ hàng -->
+        <TextView
+            android:id="@+id/btnAddToCart"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:background="@drawable/custom_radio_button"
-            android:button="@null"
+            android:background="@drawable/bg_add_to_cart"
+            android:backgroundTint="@null"
             android:gravity="center"
-            android:text="Tùy chọn 2"
-            android:textColor="@color/black"
+            android:minWidth="160dp"
+            android:paddingHorizontal="12dp"
+            android:text="Thêm vào giỏ hàng"
+            android:textColor="@color/white"
             android:textSize="16sp"
-            android:layout_margin="8dp"
-            android:padding="8dp" />
-    </RadioGroup>
-
-</LinearLayout>
+            android:textStyle="bold" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

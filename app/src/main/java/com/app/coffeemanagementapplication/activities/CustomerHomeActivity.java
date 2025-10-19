@@ -21,6 +21,10 @@ import com.app.coffeemanagementapplication.models.Category;
 import com.app.coffeemanagementapplication.models.Product;
 import com.app.coffeemanagementapplication.models.ProductFilter;
 import com.app.coffeemanagementapplication.models.ProductRating;
+import com.app.coffeemanagementapplication.repositories.ICategoryRepo;
+import com.app.coffeemanagementapplication.repositories.IProductRepo;
+import com.app.coffeemanagementapplication.services.CategoryService;
+import com.app.coffeemanagementapplication.services.ProductService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +45,6 @@ public class CustomerHomeActivity extends BaseActivity {
     private List<ProductRating> allProducts;      // dữ liệu gốc
     private List<ProductRating> productRatings;   // dữ liệu hiển thị
     private ProductAdapter productAdapter;
-
     private Integer selectedCategoryId = null;    // danh mục hiện tại
     private String currentFilterName = null;      // tên filter hiện tại
 
@@ -118,29 +121,31 @@ public class CustomerHomeActivity extends BaseActivity {
 
     // ------------------ CATEGORY ------------------
     private void setupCategory() {
+        ICategoryRepo categoryRepo = new CategoryService(this);
         List<Category> categories = new ArrayList<>();
 
         // Thêm danh mục “Tất cả”
         Category all = new Category(-1, "Tất cả", "Hiển thị tất cả sản phẩm", "", "");
         categories.add(all);
 
-        // Các danh mục cố định
-        categories.add(new Category(1, "Cafe", "Các loại cafe", "", ""));
-        categories.add(new Category(2, "Trà Sữa", "Trà sữa các vị", "", ""));
-        categories.add(new Category(3, "Sinh Tố", "Sinh tố trái cây", "", ""));
-        categories.add(new Category(4, "Bánh", "Bánh ngọt, bánh mì", "", ""));
+        // Lấy danh mục từ DB
+        List<Category> categoryList = categoryRepo.getAllCategories();
+        categories.addAll(categoryList);
 
+        // Gán adapter
         CategoryAdapter adapter = new CategoryAdapter(categories);
         binding.rcvCategory.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         );
         binding.rcvCategory.setAdapter(adapter);
 
+        // Xử lý khi click category
         adapter.setOnCategoryClickListener(category -> {
             selectedCategoryId = category.getId() == -1 ? null : category.getId();
             applyFilter(selectedCategoryId, currentFilterName);
         });
     }
+
 
     // ------------------ FILTER ------------------
     private void setupFilter() {
@@ -163,26 +168,14 @@ public class CustomerHomeActivity extends BaseActivity {
 
     // ------------------ PRODUCTS ------------------
     private void setupProductList() {
+        IProductRepo productRepo = new ProductService(this);
+        List<Product> products = productRepo.getAllProducts();
+
         allProducts = new ArrayList<>();
-
-        Product p1 = new Product(1, 1, "Cà phê sữa đá", "Cà phê truyền thống Việt Nam", 25000,
-                "https://media.istockphoto.com/id/1140614164/vi/anh/mojito-cocktail-tr%C3%AAn-qu%E1%BA%A7y-bar.jpg", true, "", "");
-        Product p2 = new Product(2, 1, "Espresso", "Cà phê Ý đậm vị", 30000,
-                "https://media.istockphoto.com/id/1140614164/vi/anh/mojito-cocktail-tr%C3%AAn-qu%E1%BA%A7y-bar.jpg", true, "", "");
-        Product p3 = new Product(3, 2, "Trà sữa trân châu", "Thức uống ngọt ngào", 35000,
-                "https://media.istockphoto.com/id/917737514/vi/anh/barmans-tay-r%E1%BA%AFc-n%C6%B0%E1%BB%9Bc-%C3%A9p-v%C3%A0o-ly-cocktail.jpg", true, "", "");
-        Product p4 = new Product(4, 3, "Sinh tố xoài", "Sinh tố tươi mát", 40000,
-                "https://media.istockphoto.com/id/505168330/vi/anh/t%C3%A1ch-c%C3%A0-ph%C3%AA-latte.jpg", true, "", "");
-        Product p5 = new Product(5, 4, "Bánh donut", "Bánh ngọt thơm ngon", 20000,
-                "https://media.istockphoto.com/id/1126871442/vi/anh/t%C3%A1ch-c%C3%A0-ph%C3%AA.jpg", true, "", "");
-
-        allProducts.addAll(Arrays.asList(
-                new ProductRating(p1, 4.5f, 120),
-                new ProductRating(p2, 5.0f, 300),
-                new ProductRating(p3, 4.0f, 210),
-                new ProductRating(p4, 4.8f, 190),
-                new ProductRating(p5, 4.2f, 85)
-        ));
+        for (Product p : products) {
+            // gán tạm rating để demo
+            allProducts.add(new ProductRating(p, 4.5f, 120));
+        }
 
         productRatings = new ArrayList<>(allProducts);
         productAdapter = new ProductAdapter(this, productRatings);

@@ -29,7 +29,7 @@ public interface IFeedbackDao {
             "JOIN Orders o ON f.orderId = o.id " +
             "JOIN OrderItems oi ON oi.orderId = o.id " +
             "WHERE oi.productId = :productId")
-    List<Feedback> getFeedbackByProduct(int productId);
+    List<Feedback> getFeedbackByProductId(int productId);
 
     @Insert
     void insertFeedback(Feedback feedback);

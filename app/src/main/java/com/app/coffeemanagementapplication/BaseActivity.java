@@ -80,4 +80,6 @@ public class BaseActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
+
+
 }

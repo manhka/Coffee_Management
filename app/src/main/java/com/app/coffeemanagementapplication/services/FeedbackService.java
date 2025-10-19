@@ -43,7 +43,7 @@ public class FeedbackService implements IFeedbackRepo {
     }
 
     @Override
-    public List<Feedback> getFeedbackByProduct(int productId) {
-        return feedbackDao.getFeedbackByProduct(productId);
+    public List<Feedback> getFeedbackByProductId(int productId) {
+        return feedbackDao.getFeedbackByProductId(productId);
     }
 }
