@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,9 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:gravity="center_vertical">
 
-        <!-- Ảnh sản phẩm -->
+        <!-- Checkbox chọn sản phẩm -->
+        <CheckBox
+            android:id="@+id/cbSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -29,7 +36,6 @@
                 android:src="@drawable/product1"/>
         </androidx.cardview.widget.CardView>
 
-        <!-- Thông tin sản phẩm -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,60 +52,74 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:maxLines="2"
-                android:ellipsize="end" />
-
+                android:ellipsize="end"/>
             <TextView
                 android:id="@+id/txtDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Mô tả ngắn của sản phẩm..."
-                android:textColor="@android:color/darker_gray"
-                android:textSize="13sp"
+                android:text="Mô tả sản phẩm"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textStyle="italic"
                 android:maxLines="2"
-                android:ellipsize="end" />
+                android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/txtPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:text="100.000 ₫"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <LinearLayout
+                android:id="@+id/quantityContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="14dp"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.5"
-                    android:rating="4.0"
-                    android:layout_marginEnd="4dp"
-                    android:progressTint="@color/gold"
-                    android:secondaryProgressTint="@color/gold"
-                    android:thumbTint="@color/gold"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtProductDescription">
 
                 <TextView
-                    android:id="@+id/txtRatingValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="(4.2)"
-                    android:textSize="13sp"
-                    android:textColor="@android:color/black" />
+                    android:id="@+id/txtMinus"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_circle_gray"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txtQuantity"
+                    android:layout_width="40dp"
+                    android:layout_height="32dp"
+                    android:layout_marginHorizontal="6dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/txtPlus"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_circle_gray"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

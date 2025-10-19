@@ -35,8 +35,8 @@ public class OrderItem {
 
     private String temperature; // "Nóng" hoặc "Lạnh"
     private String size;        // "Nhỏ", "Vừa", "Lớn"
-    private String sugar;       // "Ít", "Vừa", "Nhiều"
-    private String ice;         // "Ít", "Vừa", "Nhiều"
+    private String sugar;       // "Bình Thường",  "Ít Đường"
+    private String ice;         // "Bình Thường", "Ít Đá"
 
     // Ghi chú thêm của khách (nếu có)
     private String note;

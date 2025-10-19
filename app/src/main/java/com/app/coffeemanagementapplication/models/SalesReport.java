@@ -14,16 +14,16 @@ import androidx.room.PrimaryKey;
 )
 public class SalesReport {
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    private int id;
 
-    public String reportDate;
-    public int totalOrders;
-    public double totalRevenue;
-    public double totalDiscount;
-    public int generatedBy;
-    public String lastUpdated;
+    private String reportDate;
+    private int totalOrders;
+    private double totalRevenue;
+    private double totalDiscount;
+    private int generatedBy;
+    private String lastUpdated;
 
-    public SalesReport() {
+    private SalesReport() {
     }
 
     public SalesReport(int id, String reportDate, int totalOrders, double totalRevenue, double totalDiscount, int generatedBy, String lastUpdated) {

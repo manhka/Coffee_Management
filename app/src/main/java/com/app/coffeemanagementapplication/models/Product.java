@@ -15,16 +15,16 @@ import androidx.room.PrimaryKey;
 )
 public class Product {
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    private int id;
 
-    public Integer categoryId;
-    public String name;
-    public String description;
-    public double price;
-    public String imageUrl;
-    public boolean isAvailable;
-    public String createdAt;
-    public String updatedAt;
+    private Integer categoryId;
+    private String name;
+    private String description;
+    private double price;
+    private String imageUrl;
+    private boolean isAvailable;
+    private String createdAt;
+    private String updatedAt;
 
     public Product() {
     }

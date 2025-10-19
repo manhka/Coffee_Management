@@ -13,13 +13,13 @@ import androidx.room.PrimaryKey;
     )
     public class Feedback {
         @PrimaryKey(autoGenerate = true)
-        public int id;
+        private int id;
 
-        public int orderId;
-        public int userId;
-        public int rating;
-        public String comment;
-        public String createdAt;
+        private int orderId;
+        private int userId;
+        private int rating;
+        private String comment;
+        private String createdAt;
 
     public Feedback() {
     }

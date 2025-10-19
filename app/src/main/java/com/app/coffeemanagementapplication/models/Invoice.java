@@ -14,12 +14,12 @@ import androidx.room.PrimaryKey;
 )
 public class Invoice {
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    private int id;
 
-    public int orderId;
-    public String invoiceNumber;
-    public String issueDate;
-    public double totalAmount;
+    private int orderId;
+    private String invoiceNumber;
+    private String issueDate;
+    private double totalAmount;
 
     public Invoice() {
     }

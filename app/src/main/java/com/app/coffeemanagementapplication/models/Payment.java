@@ -14,14 +14,14 @@ import androidx.room.PrimaryKey;
 )
 public class Payment {
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    private int id;
 
-    public int orderId;
-    public String paymentDate;
-    public double amount;
-    public String method;
-    public String transactionId;
-    public String status;
+    private int orderId;
+    private String paymentDate;
+    private double amount;
+    private String method;
+    private String transactionId;
+    private String status;
 
     public Payment() {
     }

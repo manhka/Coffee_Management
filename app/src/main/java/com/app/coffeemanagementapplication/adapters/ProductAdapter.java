@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.coffeemanagementapplication.CurrencyUtils;
 import com.app.coffeemanagementapplication.activities.ProductDetailActivity;
 import com.app.coffeemanagementapplication.databinding.ItemProductBinding;
 import com.app.coffeemanagementapplication.models.ProductRating;
@@ -40,20 +41,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         ProductRating pr = productRatings.get(position);
-        holder.binding.txtName.setText(pr.product.getName());
-        holder.binding.txtDescription.setText(pr.product.getDescription());
-        holder.binding.txtPrice.setText(String.format("$%.2f", pr.product.getPrice()));
-        holder.binding.txtRatingValue.setText(String.format("Rating: %.1f (%d)", pr.averageRating, pr.totalFeedback));
-
+        holder.binding.txtName.setText(pr.getProduct().getName());
+        holder.binding.txtDescription.setText(pr.getProduct().getDescription());
+        holder.binding.txtPrice.setText(CurrencyUtils.formatVNCurrency(pr.getProduct().getPrice()));
+        holder.binding.txtRatingValue.setText(String.format("Rating: %.1f (%d)", pr.getAverageRating(), pr.getTotalFeedback()));
+        holder.binding.ratingBar.setRating((float) pr.getAverageRating());
         Glide.with(context)
-                .load(pr.product.getImageUrl())
+                .load(pr.getProduct().getImageUrl())
                 .placeholder(com.app.coffeemanagementapplication.R.drawable.ic_launcher_background)
                 .into(holder.binding.imgProduct);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(context, ProductDetailActivity.class);
-                intent.putExtra("productId", pr.product.getId());
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("productId", pr.getProduct().getId());
                 context.startActivity(intent);
             }
         });
@@ -72,6 +73,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             this.binding = binding;
         }
     }
+
     public void updateList(List<ProductRating> newList) {
         this.productRatings.clear();
         this.productRatings.addAll(newList);

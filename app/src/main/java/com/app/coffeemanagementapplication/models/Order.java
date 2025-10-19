@@ -15,17 +15,17 @@ import androidx.room.PrimaryKey;
 )
 public class Order {
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    private int id;
 
-    public int userId;
-    public Integer staffId;
-    public Integer discountId;
-    public String orderDate;
-    public double totalAmount;
-    public String paymentMethod; // 'CASH', 'QR', 'E_WALLET'
-    public OrderStatusType status;
-    public String note;
-    public Integer deliveryAddressId;
+    private int userId;
+    private Integer staffId;
+    private Integer discountId;
+    private String orderDate;
+    private double totalAmount;
+    private String paymentMethod; // 'CASH', 'QR', 'E_WALLET'
+    private OrderStatusType status;
+    private String note;
+    private Integer deliveryAddressId;
 
     public Order() {
     }

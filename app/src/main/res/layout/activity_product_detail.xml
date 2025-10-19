@@ -19,10 +19,11 @@
 
         <ImageView
             android:id="@+id/imvBtnBack"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="14dp"
+            android:padding="5dp"
             android:src="@drawable/back_ic" />
 
         <TextView
@@ -52,16 +53,26 @@
             android:background="@color/white"
             tools:context=".activities.CustomerHomeActivity">
 
-            <ImageView
-                android:id="@+id/imvProductImage"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardProductImage"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/product1"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:cardPreventCornerOverlap="false"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imvProductImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/product1" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/txtProductName"
@@ -77,7 +88,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imvProductImage"
+                app:layout_constraintTop_toBottomOf="@id/cardProductImage"
                 app:layout_constraintWidth_percent="0.5" />
 
             <TextView
@@ -92,7 +103,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imvProductImage"
+                app:layout_constraintTop_toBottomOf="@id/cardProductImage"
                 app:layout_constraintWidth_percent="0.5" />
 
             <TextView
@@ -124,7 +135,7 @@
                 <TextView
                     android:id="@+id/txtMinus"
                     android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_height="match_parent"
                     android:background="@drawable/bg_circle_gray"
                     android:gravity="center"
                     android:text="-"
@@ -165,7 +176,8 @@
                 android:background="@drawable/bg_rating_box"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/quantityContainer">
 
@@ -213,9 +225,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Xếp hạng và đánh giá"
-                    android:textColor="@color/black"
+                    android:textColor="@color/brown"
                     android:textSize="15sp"
-                    android:textStyle="normal" />
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="0dp"
@@ -266,26 +278,29 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/rbDa"
+                        android:id="@+id/rbIce"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
                         android:background="@drawable/custom_radio_button"
                         android:button="@null"
+                        android:checked="true"
                         android:gravity="center"
-                        android:text="Đá"
+                        android:tag="Lạnh"
+                        android:text="Lạnh"
                         android:textColor="@color/filter_text_color"
                         android:textSize="16sp" />
 
                     <RadioButton
-                        android:id="@+id/rbNong"
+                        android:id="@+id/rbHot"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
                         android:background="@drawable/custom_radio_button"
                         android:button="@null"
                         android:gravity="center"
+                        android:tag="Nóng"
                         android:text="Nóng"
                         android:textColor="@color/filter_text_color"
                         android:textSize="16sp" />
@@ -310,20 +325,22 @@
                     android:textColor="@color/filter_text_color">
 
                     <RadioButton
-                        android:id="@+id/rbNho"
+                        android:id="@+id/rbSizeSmall"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
                         android:background="@drawable/custom_radio_button"
                         android:button="@null"
+                        android:checked="true"
                         android:gravity="center"
+                        android:tag="Nhỏ"
                         android:text="Nhỏ"
                         android:textColor="@color/filter_text_color"
                         android:textSize="16sp" />
 
                     <RadioButton
-                        android:id="@+id/rbVua"
+                        android:id="@+id/rbSizeNormal"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginEnd="8dp"
@@ -331,18 +348,20 @@
                         android:background="@drawable/custom_radio_button"
                         android:button="@null"
                         android:gravity="center"
+                        android:tag="Vừa"
                         android:text="Vừa"
                         android:textColor="@color/filter_text_color"
                         android:textSize="16sp" />
 
                     <RadioButton
-                        android:id="@+id/rbLon"
+                        android:id="@+id/rbSizeLarge"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
                         android:background="@drawable/custom_radio_button"
                         android:button="@null"
                         android:gravity="center"
+                        android:tag="Lớn"
                         android:text="Lớn"
                         android:textColor="@color/filter_text_color"
                         android:textSize="16sp" />
@@ -359,26 +378,28 @@
                     android:textStyle="bold" />
 
                 <RadioGroup
-                    android:id="@+id/groupDuong"
+                    android:id="@+id/groupSugar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/rbBinhThuong"
+                        android:id="@+id/rbSugarNormal"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
                         android:background="@drawable/custom_radio_button"
                         android:button="@null"
+                        android:checked="true"
                         android:gravity="center"
+                        android:tag="Bình Thường"
                         android:text="Bình Thường"
                         android:textColor="@color/filter_text_color"
                         android:textSize="16sp" />
 
                     <RadioButton
-                        android:id="@+id/rbGiamBot"
+                        android:id="@+id/rbSugarLess"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginEnd="8dp"
@@ -386,7 +407,8 @@
                         android:background="@drawable/custom_radio_button"
                         android:button="@null"
                         android:gravity="center"
-                        android:text="Giảm bớt"
+                        android:tag="Ít Đường"
+                        android:text="Ít Đường"
                         android:textColor="@color/filter_text_color"
                         android:textSize="16sp" />
 
@@ -404,26 +426,28 @@
                     android:textStyle="bold" />
 
                 <RadioGroup
-                    android:id="@+id/groupDa"
+                    android:id="@+id/groupIce"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/rbDuongBinhThuong"
+                        android:id="@+id/rbIceNormal"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
                         android:background="@drawable/custom_radio_button"
                         android:button="@null"
+                        android:checked="true"
                         android:gravity="center"
+                        android:tag="Bình Thường"
                         android:text="Bình Thường"
                         android:textColor="@color/filter_text_color"
                         android:textSize="16sp" />
 
                     <RadioButton
-                        android:id="@+id/rbItDuong"
+                        android:id="@+id/rbIceLess"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginEnd="8dp"
@@ -431,7 +455,8 @@
                         android:background="@drawable/custom_radio_button"
                         android:button="@null"
                         android:gravity="center"
-                        android:text="Ít Đường"
+                        android:tag="Ít Đá"
+                        android:text="Ít Đá"
                         android:textColor="@color/filter_text_color"
                         android:textSize="16sp" />
 
@@ -439,6 +464,24 @@
                 </RadioGroup>
 
             </LinearLayout>
+
+            <EditText
+                android:id="@+id/edtNote"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:gravity="start|top"
+                android:hint="Nhập ghi chú..."
+                android:inputType="textMultiLine"
+                android:padding="12dp"
+                android:scrollbars="vertical"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/bg_note_edittext"
+                app:layout_constraintTop_toBottomOf="@id/layoutOptions"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="14dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -494,7 +537,7 @@
             android:gravity="center"
             android:minWidth="160dp"
             android:paddingHorizontal="12dp"
-            android:text="Thêm vào giỏ hàng"
+            android:text="Đặt hàng"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />

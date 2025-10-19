@@ -6,14 +6,14 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "Discounts")
 public class Discount {
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    private int id;
 
-    public String code;
-    public String description;
-    public double value;
-    public String startDate;
-    public String endDate;
-    public boolean isActive;
+    private String code;
+    private String description;
+    private double value;
+    private String startDate;
+    private String endDate;
+    private boolean isActive;
 
     public Discount() {
     }

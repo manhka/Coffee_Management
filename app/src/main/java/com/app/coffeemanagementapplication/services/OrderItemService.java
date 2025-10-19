@@ -1,0 +1,55 @@
+package com.app.coffeemanagementapplication.services;
+
+import android.content.Context;
+
+import com.app.coffeemanagementapplication.AppDatabase;
+import com.app.coffeemanagementapplication.DatabaseClient;
+import com.app.coffeemanagementapplication.daos.IOrderItemDao;
+import com.app.coffeemanagementapplication.models.OrderItem;
+import com.app.coffeemanagementapplication.repositories.IOrderItemRepo;
+
+import java.util.List;
+
+public class OrderItemService implements IOrderItemRepo {
+    private final IOrderItemDao orderItemDao;
+
+    public OrderItemService(Context context) {
+        AppDatabase db = DatabaseClient.getInstance(context.getApplicationContext()).getAppDatabase();
+        this.orderItemDao = db.orderItemDao();
+    }
+
+    @Override
+    public List<OrderItem> getAllOrderItems() {
+        return orderItemDao.getAllOrderItems();
+    }
+
+    @Override
+    public List<OrderItem> getOrderItemsByOrderId(int orderId) {
+        return orderItemDao.getOrderItemsByOrderId(orderId);
+    }
+
+    @Override
+    public OrderItem getOrderItemById(int id) {
+        return orderItemDao.getOrderItemById(id);
+    }
+
+    @Override
+    public void insertOrderItem(OrderItem orderItem) {
+orderItemDao.insertOrderItem(orderItem);
+    }
+
+    @Override
+    public void updateOrderItem(OrderItem orderItem) {
+orderItemDao.updateOrderItem(orderItem);
+    }
+
+    @Override
+    public void deleteOrderItemById(int id) {
+orderItemDao.deleteOrderItemById(id);
+    }
+
+    @Override
+    public List<OrderItem> searchOrderItems(Integer orderId, Integer productId) {
+        return orderItemDao.searchOrderItems(orderId, productId);
+    }
+}

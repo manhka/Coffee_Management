@@ -15,15 +15,15 @@ import androidx.room.PrimaryKey;
 )
 public class ShippingAddress {
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    private int id;
 
-    public int userId;
-    public String addressLine;
-    public String city;
-    public String district;
-    public String ward;
-    public String note;
-    public boolean isDefault;
+    private int userId;
+    private String addressLine;
+    private String city;
+    private String district;
+    private String ward;
+    private String note;
+    private boolean isDefault;
 
     public ShippingAddress() {
     }

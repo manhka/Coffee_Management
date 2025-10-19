@@ -1,0 +1,22 @@
+package com.app.coffeemanagementapplication.repositories;
+
+import com.app.coffeemanagementapplication.models.OrderItem;
+
+import java.util.List;
+
+public interface IOrderItemRepo {
+    List<OrderItem> getAllOrderItems();
+
+    List<OrderItem> getOrderItemsByOrderId(int orderId);
+
+    OrderItem getOrderItemById(int id);
+
+    void insertOrderItem(OrderItem orderItem);
+
+    void updateOrderItem(OrderItem orderItem);
+
+    void deleteOrderItemById(int id);
+
+
+    List<OrderItem> searchOrderItems(Integer orderId, Integer productId);
+}

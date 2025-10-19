@@ -174,7 +174,7 @@ public class CustomerHomeActivity extends BaseActivity {
         allProducts = new ArrayList<>();
         for (Product p : products) {
             // gán tạm rating để demo
-            allProducts.add(new ProductRating(p, 4.5f, 120));
+            allProducts.add(new ProductRating(p, 3f, 120));
         }
 
         productRatings = new ArrayList<>(allProducts);
@@ -202,9 +202,9 @@ public class CustomerHomeActivity extends BaseActivity {
         List<ProductRating> filtered = new ArrayList<>();
         for (ProductRating pr : allProducts) {
             boolean matchCategory = (selectedCategoryId == null)
-                    || (pr.product.getCategoryId() == selectedCategoryId);
+                    || (pr.getProduct().getCategoryId() == selectedCategoryId);
             boolean matchKeyword = keyword.isEmpty()
-                    || pr.product.getName().toLowerCase().contains(keyword);
+                    || pr.getProduct().getName().toLowerCase().contains(keyword);
 
             if (matchCategory && matchKeyword) {
                 filtered.add(pr);
@@ -215,7 +215,7 @@ public class CustomerHomeActivity extends BaseActivity {
         if ("Xếp hạng".equals(filterName)) {
             filtered.sort((a, b) -> Double.compare(b.getAverageRating(), a.getAverageRating())); // giảm dần
         } else if ("Giá".equals(filterName)) {
-            filtered.sort(Comparator.comparingDouble(a -> a.product.getPrice())); // tăng dần
+            filtered.sort(Comparator.comparingDouble(a -> a.getProduct().getPrice())); // tăng dần
         }
 
         // Cập nhật adapter
