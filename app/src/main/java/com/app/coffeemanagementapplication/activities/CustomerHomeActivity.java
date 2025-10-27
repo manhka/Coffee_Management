@@ -1,239 +1,61 @@
 package com.app.coffeemanagementapplication.activities;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.view.Menu;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.fragment.app.Fragment;
 
 import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.R;
-import com.app.coffeemanagementapplication.adapters.CategoryAdapter;
-import com.app.coffeemanagementapplication.adapters.ProductAdapter;
-import com.app.coffeemanagementapplication.adapters.ProductFilterAdapter;
-import com.app.coffeemanagementapplication.adapters.SliderAdapter;
 import com.app.coffeemanagementapplication.databinding.ActivityCustomerHomeBinding;
-import com.app.coffeemanagementapplication.models.Category;
-import com.app.coffeemanagementapplication.models.Product;
-import com.app.coffeemanagementapplication.models.ProductFilter;
-import com.app.coffeemanagementapplication.models.ProductRating;
-import com.app.coffeemanagementapplication.repositories.ICategoryRepo;
-import com.app.coffeemanagementapplication.repositories.IProductRepo;
-import com.app.coffeemanagementapplication.services.CategoryService;
-import com.app.coffeemanagementapplication.services.ProductService;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-
-
-
+import com.app.coffeemanagementapplication.fragments.CustomerHomeFragment;
+import com.app.coffeemanagementapplication.fragments.HistoryFragment;
+import com.app.coffeemanagementapplication.fragments.ProfileFragment;
 
 
 public class CustomerHomeActivity extends BaseActivity {
 
     private ActivityCustomerHomeBinding binding;
-    private final Handler sliderHandler = new Handler();
-    private Runnable sliderRunnable;
 
-    // Dữ liệu hiển thị
-    private List<ProductRating> allProducts;      // dữ liệu gốc
-    private List<ProductRating> productRatings;   // dữ liệu hiển thị
-    private ProductAdapter productAdapter;
-    private Integer selectedCategoryId = null;    // danh mục hiện tại
-    private String currentFilterName = null;      // tên filter hiện tại
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCustomerHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new CustomerHomeFragment())
+                    .commit();
+        }
+        binding.bottomNavigation.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+            int id = item.getItemId();
 
-        setupBanner();
-        setupCategory();
-        setupFilter();
-        setupProductList();
-        setupSearch();
-    }
-
-    // ------------------ BANNER ------------------
-    private void setupBanner() {
-        List<Integer> imageList = Arrays.asList(
-                R.drawable.banner1,
-                R.drawable.banner2,
-                R.drawable.banner3,
-                R.drawable.banner4,
-                R.drawable.banner5
-        );
-
-        SliderAdapter adapter = new SliderAdapter(this, imageList);
-        binding.viewPagerBanner.setAdapter(adapter);
-        setupIndicators(imageList.size());
-        setCurrentIndicator(0);
-
-        sliderRunnable = () -> {
-            int nextPos = (binding.viewPagerBanner.getCurrentItem() + 1) % imageList.size();
-            binding.viewPagerBanner.setCurrentItem(nextPos, true);
-            sliderHandler.postDelayed(sliderRunnable, 3000);
-        };
-        sliderHandler.postDelayed(sliderRunnable, 3000);
-
-        binding.viewPagerBanner.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                setCurrentIndicator(position);
-                sliderHandler.removeCallbacks(sliderRunnable);
-                sliderHandler.postDelayed(sliderRunnable, 3000);
+            if (id == com.app.coffeemanagementapplication.R.id.nav_home) {
+                selectedFragment = new CustomerHomeFragment();
+            } else if (id == com.app.coffeemanagementapplication.R.id.nav_history) {
+                selectedFragment = new HistoryFragment();
+            } else if (id == com.app.coffeemanagementapplication.R.id.nav_profile) {
+                selectedFragment = new ProfileFragment();
             }
-        });
-    }
 
-    private void setupIndicators(int count) {
-        ImageView[] indicators = new ImageView[count];
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        params.setMargins(8, 0, 8, 0);
-
-        for (int i = 0; i < count; i++) {
-            indicators[i] = new ImageView(this);
-            indicators[i].setImageResource(R.drawable.indicator_inactive);
-            indicators[i].setLayoutParams(params);
-            binding.indicatorLayout.addView(indicators[i]);
-        }
-    }
-
-    private void setCurrentIndicator(int index) {
-        int childCount = binding.indicatorLayout.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            ImageView imageView = (ImageView) binding.indicatorLayout.getChildAt(i);
-            imageView.setImageResource(
-                    i == index ? R.drawable.indicator_active : R.drawable.indicator_inactive
-            );
-        }
-    }
-
-    // ------------------ CATEGORY ------------------
-    private void setupCategory() {
-        ICategoryRepo categoryRepo = new CategoryService(this);
-        List<Category> categories = new ArrayList<>();
-
-        // Thêm danh mục “Tất cả”
-        Category all = new Category(-1, "Tất cả", "Hiển thị tất cả sản phẩm", "", "");
-        categories.add(all);
-
-        // Lấy danh mục từ DB
-        List<Category> categoryList = categoryRepo.getAllCategories();
-        categories.addAll(categoryList);
-
-        // Gán adapter
-        CategoryAdapter adapter = new CategoryAdapter(categories);
-        binding.rcvCategory.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        );
-        binding.rcvCategory.setAdapter(adapter);
-
-        // Xử lý khi click category
-        adapter.setOnCategoryClickListener(category -> {
-            selectedCategoryId = category.getId() == -1 ? null : category.getId();
-            applyFilter(selectedCategoryId, currentFilterName);
-        });
-    }
-
-
-    // ------------------ FILTER ------------------
-    private void setupFilter() {
-        List<ProductFilter> filters = Arrays.asList(
-                new ProductFilter(R.drawable.star_ic, "Xếp hạng"),
-                new ProductFilter(R.drawable.cash_ic, "Giá")
-        );
-
-        ProductFilterAdapter filterAdapter = new ProductFilterAdapter(filters);
-        binding.rcvProductFilter.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        );
-        binding.rcvProductFilter.setAdapter(filterAdapter);
-
-        filterAdapter.setOnFilterClickListener(filterName -> {
-            currentFilterName = "Tất cả".equals(filterName) ? null : filterName;
-            applyFilter(selectedCategoryId, currentFilterName);
-        });
-    }
-
-    // ------------------ PRODUCTS ------------------
-    private void setupProductList() {
-        IProductRepo productRepo = new ProductService(this);
-        List<Product> products = productRepo.getAllProducts();
-
-        allProducts = new ArrayList<>();
-        for (Product p : products) {
-            // gán tạm rating để demo
-            allProducts.add(new ProductRating(p, 3f, 120));
-        }
-
-        productRatings = new ArrayList<>(allProducts);
-        productAdapter = new ProductAdapter(this, productRatings);
-        binding.rcvProduct.setLayoutManager(new LinearLayoutManager(this));
-        binding.rcvProduct.setAdapter(productAdapter);
-    }
-
-    // ------------------ SEARCH ------------------
-    private void setupSearch() {
-        binding.edtSearch.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {
-                applyFilter(selectedCategoryId, currentFilterName);
+            if (selectedFragment != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(com.app.coffeemanagementapplication.R.id.fragment_container, selectedFragment)
+                        .commit();
             }
+
+            return true;
         });
     }
 
-    // ------------------ APPLY FILTER ------------------
-    private void applyFilter(Integer selectedCategoryId, String filterName) {
-        String keyword = binding.edtSearch.getText().toString().trim().toLowerCase();
-
-        List<ProductRating> filtered = new ArrayList<>();
-        for (ProductRating pr : allProducts) {
-            boolean matchCategory = (selectedCategoryId == null)
-                    || (pr.getProduct().getCategoryId() == selectedCategoryId);
-            boolean matchKeyword = keyword.isEmpty()
-                    || pr.getProduct().getName().toLowerCase().contains(keyword);
-
-            if (matchCategory && matchKeyword) {
-                filtered.add(pr);
-            }
-        }
-
-        // Sắp xếp
-        if ("Xếp hạng".equals(filterName)) {
-            filtered.sort((a, b) -> Double.compare(b.getAverageRating(), a.getAverageRating())); // giảm dần
-        } else if ("Giá".equals(filterName)) {
-            filtered.sort(Comparator.comparingDouble(a -> a.getProduct().getPrice())); // tăng dần
-        }
-
-        // Cập nhật adapter
-        productAdapter.updateList(filtered);
-        productRatings.clear();
-        productRatings.addAll(filtered);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        sliderHandler.removeCallbacks(sliderRunnable);
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        sliderHandler.postDelayed(sliderRunnable, 3000);
     }
-}
+    }
+
+
 

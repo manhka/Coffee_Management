@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.CurrencyUtils;
 import com.app.coffeemanagementapplication.databinding.ActivityProductDetailBinding;
+import com.app.coffeemanagementapplication.databinding.CustomToastBinding;
 import com.app.coffeemanagementapplication.models.OrderItem;
 import com.app.coffeemanagementapplication.models.Product;
 import com.app.coffeemanagementapplication.repositories.IFeedbackRepo;
@@ -148,15 +149,15 @@ public class ProductDetailActivity extends BaseActivity {
                     sugar = sugarSelectedRadioButton.getTag().toString();
                 }
 
-// Hiển thị thử
-                Toast.makeText(ProductDetailActivity.this,
-                        "Temp: " + temperature + "\nIce: " + ice + "\nSize: " + size + "\nSugar: " + sugar,
-                        Toast.LENGTH_SHORT).show();
-
-
                 String note = binding.edtNote.getText().toString();
-//                addToCart(product, currentQuantity, size, sugar, ice, temperature,note);
-//                finish();
+                addToCart(product, currentQuantity, size, sugar, ice, temperature,note);
+                CustomToastBinding binding = CustomToastBinding.inflate(getLayoutInflater());
+                binding.toastText.setText("Order thành công!");
+                Toast toast = new Toast(getApplicationContext());
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setView(binding.getRoot());
+                toast.show();
+                finish();
             }
         });
 

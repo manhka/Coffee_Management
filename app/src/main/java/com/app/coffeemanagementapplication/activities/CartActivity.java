@@ -8,19 +8,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.R;
+import com.app.coffeemanagementapplication.databinding.ActivityCartBinding;
 
-public class CartActivity extends AppCompatActivity {
-
+public class CartActivity extends BaseActivity {
+private ActivityCartBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_cart);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        binding= ActivityCartBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
     }
 }

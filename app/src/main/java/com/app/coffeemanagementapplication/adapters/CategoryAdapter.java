@@ -70,6 +70,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 listener.onCategoryClick(category);
             }
         });
+
     }
 
     @Override
