@@ -39,11 +39,6 @@ public class OrderItemService implements IOrderItemRepo {
     }
 
     @Override
-    public void updateOrderItem(OrderItem orderItem) {
-        orderItemDao.updateOrderItem(orderItem);
-    }
-
-    @Override
     public void deleteOrderItemById(int id) {
         orderItemDao.deleteOrderItemById(id);
     }
@@ -52,4 +47,11 @@ public class OrderItemService implements IOrderItemRepo {
     public List<OrderItem> searchOrderItems(Integer orderId, Integer productId) {
         return orderItemDao.searchOrderItems(orderId, productId);
     }
+
+    @Override
+    public void updateOrderItem(int id, int quantity, boolean isSelected) {
+        orderItemDao.updateOrderItem(id, quantity, isSelected);
+    }
+
+
 }

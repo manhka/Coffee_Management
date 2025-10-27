@@ -152,7 +152,7 @@ public class ProductDetailActivity extends BaseActivity {
                 String note = binding.edtNote.getText().toString();
                 addToCart(product, currentQuantity, size, sugar, ice, temperature,note);
                 CustomToastBinding binding = CustomToastBinding.inflate(getLayoutInflater());
-                binding.toastText.setText("Order thành công!");
+                binding.toastText.setText("Thêm vào giỏ hàng thành công!");
                 Toast toast = new Toast(getApplicationContext());
                 toast.setDuration(Toast.LENGTH_SHORT);
                 toast.setView(binding.getRoot());

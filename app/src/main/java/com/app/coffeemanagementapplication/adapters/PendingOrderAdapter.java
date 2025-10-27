@@ -1,6 +1,7 @@
 package com.app.coffeemanagementapplication.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,35 +24,46 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
     private final Context context;
     private final List<OrderItem> orderItems;
     private final IProductRepo productRepo;
-    private OnQuantityChangeListener quantityChangeListener;
-    private OnCartChangeListener listener;
+
+    private OnCartChangeListener cartChangeListener;
     private OnDeleteClickListener deleteClickListener;
+    private OnOrderItemUpdateListener orderItemUpdateListener;
+
+    // ====================== Interfaces ======================
     public interface OnCartChangeListener {
-        void onCartUpdated(double totalAmount);
+        void onCartUpdated(String total);
     }
+
     public interface OnDeleteClickListener {
         void onDelete(OrderItem item);
     }
-    public void setOnCartChangeListener(OnCartChangeListener listener) {
-        this.listener = listener;
+
+    /** Callback dùng để cập nhật DB qua Repository */
+    public interface OnOrderItemUpdateListener {
+        void onUpdateOrderItem(OrderItem item);
     }
+
+    // ====================== Setters ======================
+    public void setOnCartChangeListener(OnCartChangeListener listener) {
+        this.cartChangeListener = listener;
+    }
+
     public void setOnDeleteClickListener(OnDeleteClickListener listener) {
         this.deleteClickListener = listener;
     }
-    public interface OnQuantityChangeListener {
-        void onQuantityChanged(OrderItem item, int newQuantity);
+
+    public void setOnOrderItemUpdateListener(OnOrderItemUpdateListener listener) {
+        this.orderItemUpdateListener = listener;
     }
 
-    public void setOnQuantityChangeListener(OnQuantityChangeListener listener) {
-        this.quantityChangeListener = listener;
-    }
-
+    // ====================== Constructor ======================
     public PendingOrderAdapter(Context context, List<OrderItem> orderItems, IProductRepo productRepo) {
         this.context = context;
         this.orderItems = orderItems;
         this.productRepo = productRepo;
     }
 
+    // ====================== ViewHolder ======================
     @NonNull
     @Override
     public PendingOrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -65,6 +77,7 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
         Product product = productRepo.getProductById(orderItem.getProductId());
         if (product == null) return;
 
+        // ----- Gán dữ liệu sản phẩm -----
         holder.binding.txtName.setText(product.getName());
         holder.binding.txtDescription.setText(product.getDescription());
         holder.binding.txtPrice.setText(CurrencyUtils.formatVNCurrency(product.getPrice()));
@@ -75,57 +88,71 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(holder.binding.imgProduct);
 
-        //  Checkbox chọn sản phẩm
-        holder.binding.cbSelect.setOnCheckedChangeListener(null);
+        // ----- Checkbox chọn sản phẩm -----
+        holder.binding.cbSelect.setOnCheckedChangeListener(null); // tránh trigger cũ
         holder.binding.cbSelect.setChecked(orderItem.isSelected());
         holder.binding.cbSelect.setOnCheckedChangeListener((buttonView, isChecked) -> {
             orderItem.setSelected(isChecked);
+            notifyItemChanged(holder.getAdapterPosition());
             updateTotalPrice();
+
+            // ✅ Gọi callback cập nhật DB
+            if (orderItemUpdateListener != null) {
+                orderItemUpdateListener.onUpdateOrderItem(orderItem);
+            }
         });
 
-        // Nút tăng/giảm số lượng
+        // ----- Nút tăng số lượng -----
         holder.binding.txtPlus.setOnClickListener(v -> {
             orderItem.setQuantity(orderItem.getQuantity() + 1);
             holder.binding.txtQuantity.setText(String.valueOf(orderItem.getQuantity()));
 
             if (orderItem.isSelected()) updateTotalPrice();
-            if (quantityChangeListener != null)
-                quantityChangeListener.onQuantityChanged(orderItem, orderItem.getQuantity());
+
+            // ✅ Gọi callback cập nhật DB
+            if (orderItemUpdateListener != null) {
+                orderItemUpdateListener.onUpdateOrderItem(orderItem);
+            }
         });
 
+        // ----- Nút giảm số lượng -----
         holder.binding.txtMinus.setOnClickListener(v -> {
             if (orderItem.getQuantity() > 1) {
                 orderItem.setQuantity(orderItem.getQuantity() - 1);
                 holder.binding.txtQuantity.setText(String.valueOf(orderItem.getQuantity()));
 
                 if (orderItem.isSelected()) updateTotalPrice();
-                if (quantityChangeListener != null)
-                    quantityChangeListener.onQuantityChanged(orderItem, orderItem.getQuantity());
-            }
-        });
-        // nút xóa
-        holder.binding.btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                if (deleteClickListener != null) {
-                    deleteClickListener.onDelete(orderItem);
+                // ✅ Gọi callback cập nhật DB
+                if (orderItemUpdateListener != null) {
+                    orderItemUpdateListener.onUpdateOrderItem(orderItem);
                 }
             }
         });
+
+        // ----- Nút xóa -----
+        holder.binding.btnDelete.setOnClickListener(view -> {
+            if (deleteClickListener != null) {
+                deleteClickListener.onDelete(orderItem);
+            }
+        });
+        if (position == orderItems.size() - 1) {
+            updateTotalPrice();
+        }
     }
 
+    // ====================== Helper ======================
     private void updateTotalPrice() {
-        if (listener == null) return; // tránh null pointer nếu chưa set listener
+        if (cartChangeListener == null) return;
 
         double total = 0;
         for (OrderItem item : orderItems) {
             Product product = productRepo.getProductById(item.getProductId());
             if (product != null && item.isSelected()) {
-                total += product.getPrice() * item.getQuantity();
+                total +=product.getPrice() * (double)item.getQuantity();
             }
         }
-        listener.onCartUpdated(total);
+        cartChangeListener.onCartUpdated(CurrencyUtils.formatVNCurrency(total));
     }
 
     @Override
@@ -141,6 +168,7 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
             this.binding = binding;
         }
     }
+
     public void removeItem(OrderItem item) {
         int position = orderItems.indexOf(item);
         if (position != -1) {

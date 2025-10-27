@@ -19,8 +19,8 @@ public interface IOrderItemDao {
     @Insert
     void insertOrderItem(OrderItem orderItem);
 
-    @Update
-    void updateOrderItem(OrderItem orderItem);
+    @Query("UPDATE OrderItems SET quantity = :quantity, isSelected = :isSelected WHERE id = :id")
+    void updateOrderItem(int id, int quantity, boolean isSelected);
     @Query("DELETE FROM OrderItems WHERE id = :id")
     void deleteOrderItemById(int id);
     @Query("SELECT * FROM OrderItems WHERE orderId = :orderId AND productId = :productId")

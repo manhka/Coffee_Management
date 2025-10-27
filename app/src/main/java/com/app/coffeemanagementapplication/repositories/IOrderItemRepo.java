@@ -13,10 +13,10 @@ public interface IOrderItemRepo {
 
     void insertOrderItem(OrderItem orderItem);
 
-    void updateOrderItem(OrderItem orderItem);
 
     void deleteOrderItemById(int id);
 
 
     List<OrderItem> searchOrderItems(Integer orderId, Integer productId);
+    void updateOrderItem(int id, int quantity, boolean isSelected);
 }

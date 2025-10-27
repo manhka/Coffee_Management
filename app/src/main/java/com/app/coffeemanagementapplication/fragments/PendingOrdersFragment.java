@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -38,58 +39,76 @@ public class PendingOrdersFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPendingOrdersBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         productRepo = new ProductService(requireContext());
         orderItemRepo = new OrderItemService(requireContext());
 
         setupRecyclerView();
 
-        return binding.getRoot();
+        // Nút "Tiếp tục" (có thể dùng sau này)
+        binding.btnContinues.setOnClickListener(v -> {
+            double total = calculateTotalFromDb();
+            binding.txtTotalPrice.setText(CurrencyUtils.formatVNCurrency(total));
+        });
     }
 
     private void setupRecyclerView() {
-        orderItems = getPendingOrderItems();
+        orderItems = orderItemRepo.getAllOrderItems();
 
         adapter = new PendingOrderAdapter(requireContext(), orderItems, productRepo);
         binding.rcvPendingOrders.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rcvPendingOrders.setAdapter(adapter);
 
-        //  Khi tick hoặc bỏ tick sản phẩm => cập nhật tổng
-        adapter.setOnCartChangeListener(total -> {
-            binding.txtTotalPrice.setText("Tổng: " + CurrencyUtils.formatVNCurrency(total));
+        // Khi tick/untick sản phẩm
+        adapter.setOnOrderItemUpdateListener(item -> {
+            orderItemRepo.updateOrderItem(item.getId(), item.getQuantity(), item.isSelected());
+            updateTotalPrice();
         });
 
-        //  Khi tăng/giảm số lượng
-        adapter.setOnQuantityChangeListener((item, newQuantity) -> {
-            // chỉ cập nhật tổng nếu item đó đang được chọn
-            if (item.isSelected()) {
-                double total = calculateTotal();
-                binding.txtTotalPrice.setText("Tổng: " + CurrencyUtils.formatVNCurrency(total));
-            }
+        // Khi thay đổi tổng tiền (callback từ adapter)
+        adapter.setOnCartChangeListener(totalStr -> {
+            binding.txtTotalPrice.setText(totalStr);
         });
+
+        // Khi xóa sản phẩm
         adapter.setOnDeleteClickListener(item -> {
             orderItemRepo.deleteOrderItemById(item.getId());
             adapter.removeItem(item);
-            double total = calculateTotal();
-            binding.txtTotalPrice.setText("Tổng: " + CurrencyUtils.formatVNCurrency(total));
+            updateTotalPrice();
         });
+
+        // ✅ Cập nhật tổng tiền ngay khi vào màn
+        updateTotalPrice();
     }
 
-    private double calculateTotal() {
+    /**
+     * Tính tổng tiền dựa trên dữ liệu mới nhất trong DB
+     */
+    private void updateTotalPrice() {
+        double total = calculateTotalFromDb();
+        binding.txtTotalPrice.setText(CurrencyUtils.formatVNCurrency(total));
+    }
+
+    /**
+     * Đọc lại toàn bộ dữ liệu từ DB và tính tổng (đảm bảo chính xác)
+     */
+    private double calculateTotalFromDb() {
         double total = 0;
-        for (OrderItem item : orderItems) {
+        List<OrderItem> items = orderItemRepo.getAllOrderItems();
+        for (OrderItem item : items) {
             if (item.isSelected()) {
-                Product p = productRepo.getProductById(item.getProductId());
-                if (p != null) {
-                    total += p.getPrice() * item.getQuantity();
+                Product product = productRepo.getProductById(item.getProductId());
+                if (product != null) {
+                    total += product.getPrice() * item.getQuantity();
                 }
             }
         }
         return total;
-    }
-
-    private List<OrderItem> getPendingOrderItems() {
-        return orderItemRepo.getAllOrderItems();
     }
 
     @Override
