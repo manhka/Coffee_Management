@@ -16,24 +16,30 @@ public class Payment {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private int orderId;
-    private String paymentDate;
-    private double amount;
-    private String method;
-    private String transactionId;
-    private String status;
+    private Integer orderId;
+    private String paymentName;
+    private int imageUrl;
+    private String paymentDescription;
+    private boolean isDefault;
 
     public Payment() {
     }
 
-    public Payment(int id, int orderId, String paymentDate, double amount, String method, String transactionId, String status) {
+    public Payment(int id, Integer orderId, String paymentName, int imageUrl, String paymentDescription, boolean isDefault) {
         this.id = id;
         this.orderId = orderId;
-        this.paymentDate = paymentDate;
-        this.amount = amount;
-        this.method = method;
-        this.transactionId = transactionId;
-        this.status = status;
+        this.paymentName = paymentName;
+        this.imageUrl = imageUrl;
+        this.paymentDescription = paymentDescription;
+        this.isDefault = isDefault;
+    }
+
+    public Payment(Integer orderId, String paymentName, int imageUrl, String paymentDescription, boolean isDefault) {
+        this.orderId = orderId;
+        this.paymentName = paymentName;
+        this.imageUrl = imageUrl;
+        this.paymentDescription = paymentDescription;
+        this.isDefault = isDefault;
     }
 
     public int getId() {
@@ -44,51 +50,43 @@ public class Payment {
         this.id = id;
     }
 
-    public int getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
-    public String getPaymentDate() {
-        return paymentDate;
+    public String getPaymentName() {
+        return paymentName;
     }
 
-    public void setPaymentDate(String paymentDate) {
-        this.paymentDate = paymentDate;
+    public void setPaymentName(String paymentName) {
+        this.paymentName = paymentName;
     }
 
-    public double getAmount() {
-        return amount;
+    public int getImageUrl() {
+        return imageUrl;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setImageUrl(int imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public String getMethod() {
-        return method;
+    public String getPaymentDescription() {
+        return paymentDescription;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public void setPaymentDescription(String paymentDescription) {
+        this.paymentDescription = paymentDescription;
     }
 
-    public String getTransactionId() {
-        return transactionId;
+    public boolean isDefault() {
+        return isDefault;
     }
 
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
     }
 }

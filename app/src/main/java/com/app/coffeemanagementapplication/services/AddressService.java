@@ -46,6 +46,11 @@ public class AddressService implements IAddressRepo {
     }
 
     @Override
+    public void clearDefaultAddress(int userId) {
+        addressDao.clearDefaultAddress(userId);
+    }
+
+    @Override
     public void setDefaultAddress(int addressId, int userId) {
         addressDao.clearDefaultAddress(userId);
         addressDao.setDefaultAddress(addressId);

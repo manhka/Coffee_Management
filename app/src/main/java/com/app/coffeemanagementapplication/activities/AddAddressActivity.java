@@ -1,5 +1,6 @@
 package com.app.coffeemanagementapplication.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -275,6 +276,7 @@ public class AddAddressActivity extends BaseActivity {
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(binding.getRoot());
         toast.show();
-        finish();
+        Intent intent = new Intent(AddAddressActivity.this, ChoosingAddressActivity.class);
+        startActivity(intent);
     }
 }

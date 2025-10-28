@@ -25,6 +25,7 @@ public interface IAddressRepo {
 
     void deleteAddress(int id);
 
+    void clearDefaultAddress(int userId);
 
     // Đặt 1 địa chỉ làm mặc định
     void setDefaultAddress(int addressId, int userId);

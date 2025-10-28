@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CoffeeManagementApplication">
         <activity
+            android:name=".activities.PaymentMethodActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AddAddressActivity"
             android:exported="false" />
         <activity

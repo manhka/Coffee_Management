@@ -4,13 +4,16 @@ package com.app.coffeemanagementapplication;
 import android.app.Application;
 
 import com.app.coffeemanagementapplication.models.Category;
+import com.app.coffeemanagementapplication.models.Payment;
 import com.app.coffeemanagementapplication.models.Product;
 import com.app.coffeemanagementapplication.models.RoleType;
 import com.app.coffeemanagementapplication.models.Users;
 import com.app.coffeemanagementapplication.repositories.ICategoryRepo;
+import com.app.coffeemanagementapplication.repositories.IPaymentRepo;
 import com.app.coffeemanagementapplication.repositories.IProductRepo;
 import com.app.coffeemanagementapplication.repositories.IUserRepo;
 import com.app.coffeemanagementapplication.services.CategoryService;
+import com.app.coffeemanagementapplication.services.PaymentService;
 import com.app.coffeemanagementapplication.services.ProductService;
 import com.app.coffeemanagementapplication.services.UserService;
 
@@ -21,11 +24,13 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        // Khởi tạo SharePres
+        MySharePrefers.init(this);
         // Khởi tạo repo
         ICategoryRepo categoryRepo = new CategoryService(this);
         IProductRepo productRepo = new ProductService(this);
         IUserRepo userRepo = new UserService(this);
+        IPaymentRepo paymentRepo = new PaymentService(this);
         // Chỉ insert nếu DB trống (tránh nhân đôi)
         List<Category> existingCategories = categoryRepo.getAllCategories();
         if (existingCategories == null || existingCategories.isEmpty()) {
@@ -39,6 +44,10 @@ public class MyApplication extends Application {
         List<Users> existingUsers = userRepo.getAllUsers();
         if (existingUsers == null || existingUsers.isEmpty()) {
             seedUsers(userRepo);
+        }
+        List<Payment> paymentList = paymentRepo.getAllPaymentMethods();
+        if (paymentList == null || paymentList.isEmpty()) {
+            seedPayments(paymentRepo);
         }
     }
 
@@ -83,6 +92,13 @@ public class MyApplication extends Application {
         categoryRepo.insertCategory(new Category(2, "Trà Sữa", "Trà sữa các vị", "", ""));
         categoryRepo.insertCategory(new Category(3, "Sinh Tố", "Sinh tố trái cây", "", ""));
         categoryRepo.insertCategory(new Category(4, "Bánh", "Bánh ngọt, bánh mì", "", ""));
+    }
+
+    private void seedPayments(IPaymentRepo paymentRepo) {
+        paymentRepo.insertPayment(new Payment(null, "Thanh toán tiền mặt", R.drawable.cash_payment_ic, "(Thanh toán khi nhận hàng)", false));
+        paymentRepo.insertPayment(new Payment(null, "Credit or Debit Card", R.drawable.credit_cash_ic, "(Thẻ Visa hoặc Mastercard)", false));
+        paymentRepo.insertPayment(new Payment(null, "Chuyển khoản ngân hàng", R.drawable.bank_transfer_ic, "(Tự động xác nhận)", false));
+        paymentRepo.insertPayment(new Payment(null, "Zalo pay", R.drawable.zalo_pay_ic, "(Tự động xác nhận)", false));
     }
 
     // 🟫 Seed Product
