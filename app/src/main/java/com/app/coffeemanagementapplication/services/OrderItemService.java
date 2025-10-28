@@ -8,6 +8,7 @@ import com.app.coffeemanagementapplication.daos.IOrderItemDao;
 import com.app.coffeemanagementapplication.models.OrderItem;
 import com.app.coffeemanagementapplication.repositories.IOrderItemRepo;
 
+import java.util.Collections;
 import java.util.List;
 
 public class OrderItemService implements IOrderItemRepo {
@@ -51,6 +52,11 @@ public class OrderItemService implements IOrderItemRepo {
     @Override
     public void updateOrderItem(int id, int quantity, boolean isSelected) {
         orderItemDao.updateOrderItem(id, quantity, isSelected);
+    }
+
+    @Override
+    public List<OrderItem> getAllSelectedOrderItems() {
+        return orderItemDao.getAllSelectedOrderItems();
     }
 
 

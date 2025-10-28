@@ -5,7 +5,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity(
-        tableName = "Addresses",
+        tableName = "ShippingAddress",
         foreignKeys = @ForeignKey(
                 entity = Users.class,
                 parentColumns = "id",
@@ -24,11 +24,13 @@ public class ShippingAddress {
     private String ward;
     private String note;
     private boolean isDefault;
+    private String fullName;
+    private String phone;
 
     public ShippingAddress() {
     }
 
-    public ShippingAddress(int id, int userId, String addressLine, String city, String district, String ward, String note, boolean isDefault) {
+    public ShippingAddress(int id, int userId, String addressLine, String city, String district, String ward, String note, boolean isDefault, String fullName, String phone) {
         this.id = id;
         this.userId = userId;
         this.addressLine = addressLine;
@@ -37,6 +39,20 @@ public class ShippingAddress {
         this.ward = ward;
         this.note = note;
         this.isDefault = isDefault;
+        this.fullName = fullName;
+        this.phone = phone;
+    }
+
+    public ShippingAddress(int userId, String addressLine, String city, String district, String ward, String note, boolean isDefault, String fullName, String phone) {
+        this.userId = userId;
+        this.addressLine = addressLine;
+        this.city = city;
+        this.district = district;
+        this.ward = ward;
+        this.note = note;
+        this.isDefault = isDefault;
+        this.fullName = fullName;
+        this.phone = phone;
     }
 
     public int getId() {
@@ -101,5 +117,21 @@ public class ShippingAddress {
 
     public void setDefault(boolean aDefault) {
         isDefault = aDefault;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

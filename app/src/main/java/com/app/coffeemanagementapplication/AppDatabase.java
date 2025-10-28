@@ -3,11 +3,13 @@ package com.app.coffeemanagementapplication;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
+import com.app.coffeemanagementapplication.daos.IAddressDao;
 import com.app.coffeemanagementapplication.daos.ICategoryDao;
 import com.app.coffeemanagementapplication.daos.IFeedbackDao;
 import com.app.coffeemanagementapplication.daos.IOrderDao;
 import com.app.coffeemanagementapplication.daos.IOrderItemDao;
 import com.app.coffeemanagementapplication.daos.IProductDao;
+import com.app.coffeemanagementapplication.daos.IUserDao;
 import com.app.coffeemanagementapplication.models.Category;
 import com.app.coffeemanagementapplication.models.Discount;
 import com.app.coffeemanagementapplication.models.Feedback;
@@ -25,4 +27,8 @@ public abstract class AppDatabase extends RoomDatabase  {
     public abstract ICategoryDao categoryDao();
 
     public abstract IOrderItemDao orderItemDao();
+    public abstract IAddressDao addressDao();
+    public abstract IUserDao userDao();
+
+
 }

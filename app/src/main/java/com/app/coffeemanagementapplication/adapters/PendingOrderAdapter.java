@@ -24,7 +24,10 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
     private final Context context;
     private final List<OrderItem> orderItems;
     private final IProductRepo productRepo;
-
+    private OnSelectionChangedListener selectionChangedListener;
+    public interface OnSelectionChangedListener {
+        void onSelectionChanged();
+    }
     private OnCartChangeListener cartChangeListener;
     private OnDeleteClickListener deleteClickListener;
     private OnOrderItemUpdateListener orderItemUpdateListener;
@@ -55,7 +58,9 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
     public void setOnOrderItemUpdateListener(OnOrderItemUpdateListener listener) {
         this.orderItemUpdateListener = listener;
     }
-
+    public void setOnSelectionChangedListener(OnSelectionChangedListener listener) {
+        this.selectionChangedListener = listener;
+    }
     // ====================== Constructor ======================
     public PendingOrderAdapter(Context context, List<OrderItem> orderItems, IProductRepo productRepo) {
         this.context = context;
@@ -96,9 +101,12 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
             notifyItemChanged(holder.getAdapterPosition());
             updateTotalPrice();
 
-            // ✅ Gọi callback cập nhật DB
+            // Gọi callback cập nhật DB
             if (orderItemUpdateListener != null) {
                 orderItemUpdateListener.onUpdateOrderItem(orderItem);
+            }
+            if (selectionChangedListener!= null){
+                selectionChangedListener.onSelectionChanged();
             }
         });
 
@@ -109,7 +117,7 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
 
             if (orderItem.isSelected()) updateTotalPrice();
 
-            // ✅ Gọi callback cập nhật DB
+            //  Gọi callback cập nhật DB
             if (orderItemUpdateListener != null) {
                 orderItemUpdateListener.onUpdateOrderItem(orderItem);
             }
@@ -123,7 +131,7 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
 
                 if (orderItem.isSelected()) updateTotalPrice();
 
-                // ✅ Gọi callback cập nhật DB
+                //  Gọi callback cập nhật DB
                 if (orderItemUpdateListener != null) {
                     orderItemUpdateListener.onUpdateOrderItem(orderItem);
                 }

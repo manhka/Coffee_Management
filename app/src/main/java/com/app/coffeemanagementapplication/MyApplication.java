@@ -5,10 +5,14 @@ import android.app.Application;
 
 import com.app.coffeemanagementapplication.models.Category;
 import com.app.coffeemanagementapplication.models.Product;
+import com.app.coffeemanagementapplication.models.RoleType;
+import com.app.coffeemanagementapplication.models.Users;
 import com.app.coffeemanagementapplication.repositories.ICategoryRepo;
 import com.app.coffeemanagementapplication.repositories.IProductRepo;
+import com.app.coffeemanagementapplication.repositories.IUserRepo;
 import com.app.coffeemanagementapplication.services.CategoryService;
 import com.app.coffeemanagementapplication.services.ProductService;
+import com.app.coffeemanagementapplication.services.UserService;
 
 import java.util.List;
 
@@ -21,7 +25,7 @@ public class MyApplication extends Application {
         // Khởi tạo repo
         ICategoryRepo categoryRepo = new CategoryService(this);
         IProductRepo productRepo = new ProductService(this);
-
+        IUserRepo userRepo = new UserService(this);
         // Chỉ insert nếu DB trống (tránh nhân đôi)
         List<Category> existingCategories = categoryRepo.getAllCategories();
         if (existingCategories == null || existingCategories.isEmpty()) {
@@ -32,6 +36,45 @@ public class MyApplication extends Application {
         if (existingProducts == null || existingProducts.isEmpty()) {
             seedProducts(productRepo);
         }
+        List<Users> existingUsers = userRepo.getAllUsers();
+        if (existingUsers == null || existingUsers.isEmpty()) {
+            seedUsers(userRepo);
+        }
+    }
+
+    private void seedUsers(IUserRepo userRepo) {
+        userRepo.insertUser(new Users(
+                1,
+                "Nguyễn Văn A",
+                "vana@example.com",
+                "123456",
+                RoleType.CUSTOMER,
+                "0987654321",
+                "2025-10-28 10:00:00",
+                "2025-10-28 10:00:00"
+        ));
+
+        userRepo.insertUser(new Users(
+                2,
+                "Trần Thị B",
+                "thib@example.com",
+                "123456",
+                RoleType.CUSTOMER,
+                "0978123456",
+                "2025-10-28 10:05:00",
+                "2025-10-28 10:05:00"
+        ));
+
+        userRepo.insertUser(new Users(
+                3,
+                "Admin",
+                "admin@example.com",
+                "admin123",
+                RoleType.ADMIN,
+                "0909000000",
+                "2025-10-28 10:10:00",
+                "2025-10-28 10:10:00"
+        ));
     }
 
     // 🟫 Seed Category

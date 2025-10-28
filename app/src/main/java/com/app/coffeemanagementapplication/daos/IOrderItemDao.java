@@ -13,7 +13,8 @@ import java.util.List;
 public interface IOrderItemDao {
     @Query("SELECT * FROM OrderItems")
     List<OrderItem> getAllOrderItems();
-
+        @Query("SELECT * FROM OrderItems WHERE isSelected= 1")
+        List<OrderItem> getAllSelectedOrderItems();
     @Query("SELECT * FROM OrderItems WHERE orderId = :orderId")
     List<OrderItem> getOrderItemsByOrderId(int orderId);
     @Insert

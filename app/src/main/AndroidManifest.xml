@@ -15,7 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CoffeeManagementApplication">
         <activity
-            android:name=".activities.CartActivity"
+            android:name=".activities.AddAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ChoosingAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.PaymentOrderActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ProductDetailActivity"

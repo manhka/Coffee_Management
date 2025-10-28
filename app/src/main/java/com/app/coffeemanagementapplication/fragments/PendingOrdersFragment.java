@@ -1,5 +1,6 @@
 package com.app.coffeemanagementapplication.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.coffeemanagementapplication.CurrencyUtils;
+import com.app.coffeemanagementapplication.activities.PaymentOrderActivity;
 import com.app.coffeemanagementapplication.adapters.PendingOrderAdapter;
 import com.app.coffeemanagementapplication.databinding.FragmentPendingOrdersBinding;
 import com.app.coffeemanagementapplication.models.OrderItem;
@@ -50,11 +52,29 @@ public class PendingOrdersFragment extends Fragment {
 
         setupRecyclerView();
 
-        // Nút "Tiếp tục" (có thể dùng sau này)
+        // Gán sự kiện click một lần duy nhất
         binding.btnContinues.setOnClickListener(v -> {
-            double total = calculateTotalFromDb();
-            binding.txtTotalPrice.setText(CurrencyUtils.formatVNCurrency(total));
+            Intent intent = new Intent(requireContext(), PaymentOrderActivity.class);
+            startActivity(intent);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateContinueButton();
+    }
+
+    private void updateContinueButton() {
+        List<OrderItem> checkedOrderItems = orderItemRepo.getAllSelectedOrderItems();
+
+        if (checkedOrderItems.isEmpty()) {
+            binding.btnContinues.setEnabled(false);
+            binding.btnContinues.setAlpha(0.5f);
+        } else {
+            binding.btnContinues.setEnabled(true);
+            binding.btnContinues.setAlpha(1.0f);
+        }
     }
 
     private void setupRecyclerView() {
@@ -81,8 +101,10 @@ public class PendingOrdersFragment extends Fragment {
             adapter.removeItem(item);
             updateTotalPrice();
         });
-
-        // ✅ Cập nhật tổng tiền ngay khi vào màn
+        adapter.setOnSelectionChangedListener(() -> {
+            updateContinueButton();
+        });
+        //  Cập nhật tổng tiền ngay khi vào màn
         updateTotalPrice();
     }
 

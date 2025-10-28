@@ -19,4 +19,6 @@ public interface IOrderItemRepo {
 
     List<OrderItem> searchOrderItems(Integer orderId, Integer productId);
     void updateOrderItem(int id, int quantity, boolean isSelected);
+    List<OrderItem> getAllSelectedOrderItems();
+
 }
