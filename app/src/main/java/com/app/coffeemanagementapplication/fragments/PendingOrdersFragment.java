@@ -16,6 +16,7 @@ import com.app.coffeemanagementapplication.activities.PaymentOrderActivity;
 import com.app.coffeemanagementapplication.adapters.PendingOrderAdapter;
 import com.app.coffeemanagementapplication.databinding.FragmentPendingOrdersBinding;
 import com.app.coffeemanagementapplication.models.OrderItem;
+import com.app.coffeemanagementapplication.models.OrderItemStatus;
 import com.app.coffeemanagementapplication.models.Product;
 import com.app.coffeemanagementapplication.repositories.IOrderItemRepo;
 import com.app.coffeemanagementapplication.repositories.IProductRepo;
@@ -66,7 +67,7 @@ public class PendingOrdersFragment extends Fragment {
     }
 
     private void updateContinueButton() {
-        List<OrderItem> checkedOrderItems = orderItemRepo.getAllSelectedOrderItems();
+        List<OrderItem> checkedOrderItems = orderItemRepo.getAllSelectedOrderItemsByStatus(OrderItemStatus.PENDING.getValue());
 
         if (checkedOrderItems.isEmpty()) {
             binding.btnContinues.setEnabled(false);
@@ -78,8 +79,7 @@ public class PendingOrdersFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        orderItems = orderItemRepo.getAllOrderItems();
-
+        orderItems = orderItemRepo.getAllOrderItemsByStatus(OrderItemStatus.PENDING.getValue());
         adapter = new PendingOrderAdapter(requireContext(), orderItems, productRepo);
         binding.rcvPendingOrders.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rcvPendingOrders.setAdapter(adapter);
@@ -121,7 +121,7 @@ public class PendingOrdersFragment extends Fragment {
      */
     private double calculateTotalFromDb() {
         double total = 0;
-        List<OrderItem> items = orderItemRepo.getAllOrderItems();
+        List<OrderItem> items = orderItemRepo.getAllOrderItemsByStatus(OrderItemStatus.PENDING.getValue());
         for (OrderItem item : items) {
             if (item.isSelected()) {
                 Product product = productRepo.getProductById(item.getProductId());

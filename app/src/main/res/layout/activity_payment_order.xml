@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:paddingTop="@dimen/padding_large"
-    tools:context=".activities.PaymentOrderActivity">
+    tools:context=".activities.PaymentOrderActivity"
+   >
 
     <LinearLayout
         android:id="@+id/layoutTitle"
@@ -98,8 +99,8 @@
                     android:textSize="16sp" />
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:src="@drawable/arrow_right_ic" />
             </LinearLayout>
 
@@ -135,8 +136,8 @@
                     android:textSize="16sp" />
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:src="@drawable/arrow_right_ic" />
             </LinearLayout>
             <!-- Khuyến mại -->
@@ -171,10 +172,32 @@
                     android:textSize="16sp" />
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:src="@drawable/arrow_right_ic" />
             </LinearLayout>
+            <!-- Khuyến mại -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="Ghi chú"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- note -->
+            <EditText
+                android:id="@+id/edtNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Ghi chú thêm..."
+                android:imeOptions="actionDone"
+                android:padding="12dp"
+                android:layout_marginTop="10dp"
+                />
 
 
         </LinearLayout>
@@ -222,7 +245,7 @@
 
         <!-- Nút thanh toán -->
         <TextView
-            android:id="@+id/btnAddToCart"
+            android:id="@+id/btnPayOrder"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:background="@drawable/bg_add_to_cart"

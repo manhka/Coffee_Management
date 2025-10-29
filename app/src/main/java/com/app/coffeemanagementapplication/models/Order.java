@@ -23,14 +23,14 @@ public class Order {
     private String orderDate;
     private double totalAmount;
     private String paymentMethod; // 'CASH', 'QR', 'E_WALLET'
-    private OrderStatusType status;
+    private String orderStatus; // 'PENDING', 'PREPARING', 'COMPLETED', 'DELIVERED'
     private String note;
     private Integer deliveryAddressId;
 
     public Order() {
     }
 
-    public Order(int id, int userId, Integer staffId, Integer discountId, String orderDate, double totalAmount, String paymentMethod, OrderStatusType status, String note, Integer deliveryAddressId) {
+    public Order(int id, int userId, Integer staffId, Integer discountId, String orderDate, double totalAmount, String paymentMethod, String orderStatus, String note, Integer deliveryAddressId) {
         this.id = id;
         this.userId = userId;
         this.staffId = staffId;
@@ -38,7 +38,19 @@ public class Order {
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
         this.paymentMethod = paymentMethod;
-        this.status = status;
+        this.orderStatus = orderStatus;
+        this.note = note;
+        this.deliveryAddressId = deliveryAddressId;
+    }
+
+    public Order(int userId, Integer staffId, Integer discountId, String orderDate, double totalAmount, String paymentMethod, String orderStatus, String note, Integer deliveryAddressId) {
+        this.userId = userId;
+        this.staffId = staffId;
+        this.discountId = discountId;
+        this.orderDate = orderDate;
+        this.totalAmount = totalAmount;
+        this.paymentMethod = paymentMethod;
+        this.orderStatus = orderStatus;
         this.note = note;
         this.deliveryAddressId = deliveryAddressId;
     }
@@ -99,12 +111,12 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
-    public OrderStatusType getStatus() {
-        return status;
+    public String getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setStatus(OrderStatusType status) {
-        this.status = status;
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public String getNote() {

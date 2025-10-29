@@ -16,7 +16,7 @@ import java.util.List;
 public class ProductFilterAdapter extends RecyclerView.Adapter<ProductFilterAdapter.FilterViewHolder> {
 
     private final List<ProductFilter> filters;
-    private int selectedPosition = 0; // Mặc định chọn "Tất cả"
+    private int selectedPosition = -1; // Mặc định chọn "Tất cả"
     private OnFilterClickListener listener; // interface callback
 
     public ProductFilterAdapter(List<ProductFilter> filters) {

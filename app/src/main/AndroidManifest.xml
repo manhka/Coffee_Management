@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CoffeeManagementApplication">
         <activity
+            android:name=".activities.ProductFeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ChoosingDiscountActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.PaymentMethodActivity"
             android:exported="false" />
         <activity

@@ -24,6 +24,13 @@ public class Category {
         this.updatedAt = updatedAt;
     }
 
+    public Category(String name, String description, String createdAt, String updatedAt) {
+        this.name = name;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     public int getId() {
         return id;
     }

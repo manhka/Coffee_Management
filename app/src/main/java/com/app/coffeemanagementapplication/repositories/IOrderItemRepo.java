@@ -5,7 +5,9 @@ import com.app.coffeemanagementapplication.models.OrderItem;
 import java.util.List;
 
 public interface IOrderItemRepo {
-    List<OrderItem> getAllOrderItems();
+    List<OrderItem> getAllOrderItemsByStatus(String status);
+
+
 
     List<OrderItem> getOrderItemsByOrderId(int orderId);
 
@@ -19,6 +21,8 @@ public interface IOrderItemRepo {
 
     List<OrderItem> searchOrderItems(Integer orderId, Integer productId);
     void updateOrderItem(int id, int quantity, boolean isSelected);
-    List<OrderItem> getAllSelectedOrderItems();
+    List<OrderItem> getAllSelectedOrderItemsByStatus(String status);
+    void updateSelectedOrderItemStatus(int id, String status);
+    void updateOrderIdOfSelectedOrderItem(int id, int orderId);
 
 }

@@ -15,7 +15,7 @@ public interface IOrderRepo {
 
     List<Order> getOrdersByDate(String date);
 
-    void insertOrder(Order order);
+    long  insertOrder(Order order);
 
     void updateOrder(Order order);
 

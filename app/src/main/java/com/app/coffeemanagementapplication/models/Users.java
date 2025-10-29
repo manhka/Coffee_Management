@@ -14,12 +14,13 @@ public class Users {
     public RoleType role;
     public String phone;
     public String createdAt;
+    public String avatarUrl;
     public String updatedAt;
 
     public Users() {
     }
 
-    public Users(int id, String fullName, String email, String password, RoleType role, String phone, String createdAt, String updatedAt) {
+    public Users(int id, String fullName, String email, String password, RoleType role, String phone, String createdAt, String avatarUrl, String updatedAt) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -27,7 +28,27 @@ public class Users {
         this.role = role;
         this.phone = phone;
         this.createdAt = createdAt;
+        this.avatarUrl = avatarUrl;
         this.updatedAt = updatedAt;
+    }
+
+    public Users(String fullName, String email, String password, RoleType role, String phone, String createdAt, String avatarUrl, String updatedAt) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.phone = phone;
+        this.createdAt = createdAt;
+        this.avatarUrl = avatarUrl;
+        this.updatedAt = updatedAt;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public int getId() {
