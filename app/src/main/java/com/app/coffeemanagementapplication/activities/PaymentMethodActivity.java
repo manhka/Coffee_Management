@@ -36,12 +36,17 @@ public class PaymentMethodActivity extends BaseActivity {
         setContentView(binding.getRoot());
         paymentRepo = new PaymentService(this);
         paymentList = paymentRepo.getAllPaymentMethods();
+        binding.btnSave.setVisibility(View.INVISIBLE);
+        binding.btnSave.setEnabled(false);
+
         adapter = new PaymentMethodAdapter(paymentList, this, position -> {
             currentPaymentMethodId = paymentList.get(position).getId();
             for (int i = 0; i < paymentList.size(); i++) {
                 paymentList.get(i).setDefault(i == position);
             }
             adapter.notifyDataSetChanged();
+            binding.btnSave.setVisibility(View.VISIBLE);
+            binding.btnSave.setEnabled(true);
         });
         binding.rcvPaymentMethods.setAdapter(adapter);
         binding.rcvPaymentMethods.setLayoutManager(new LinearLayoutManager(this));

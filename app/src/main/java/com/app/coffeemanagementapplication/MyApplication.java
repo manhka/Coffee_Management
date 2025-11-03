@@ -113,7 +113,7 @@ public class MyApplication extends Application {
         ));
     }
 
-    // 🟫 Seed Category
+    // Seed Category
     private void seedCategories(ICategoryRepo categoryRepo) {
         categoryRepo.insertCategory(new Category("Cafe", "Các loại cafe", "", ""));
         categoryRepo.insertCategory(new Category("Trà Sữa", "Trà sữa các vị", "", ""));
@@ -123,7 +123,7 @@ public class MyApplication extends Application {
     private void seedFeedbacks(IFeedbackRepo feedbackRepo) {
         Random random = new Random();
 
-        int userId = 1;   // giả sử userId cố định (hoặc có thể random)
+        int userId = 2;   // giả sử userId cố định (hoặc có thể random)
         int orderId = 1;  // tạm thời gán cố định để tránh lỗi ForeignKey
 
         for (int productId = 1; productId <= 3; productId++) {

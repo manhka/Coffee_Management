@@ -40,12 +40,16 @@ public class ChoosingDiscountActivity extends BaseActivity {
         Log.d("totalOrderrrrrr", String.valueOf(totalOrder));
         discountRepo = new DiscountService(this);
         discountList = discountRepo.getAllDiscounts();
+        binding.btnSave.setVisibility(View.INVISIBLE);
+        binding.btnSave.setEnabled(false);
         discountAdapter = new DiscountAdapter(discountList, this, totalOrder, position -> {
             discountId = discountList.get(position).getId();
             for (int i = 0; i < discountList.size(); i++) {
                 discountList.get(i).setDefault(i == position);
             }
             discountAdapter.notifyDataSetChanged();
+            binding.btnSave.setVisibility(View.VISIBLE);
+            binding.btnSave.setEnabled(true);
         });
         binding.rcvDiscount.setAdapter(discountAdapter);
         binding.rcvDiscount.setLayoutManager(new LinearLayoutManager(this));

@@ -57,15 +57,15 @@ public class PaymentOrderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPaymentOrderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.nestedScrollView, (v, insets) -> {
-//            Insets imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime());
-//            Insets navInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//
-//            // Thêm padding dưới tương ứng với chiều cao bàn phím hoặc thanh điều hướng
-//            v.setPadding(0, 0, 0, Math.max(imeInsets.bottom, navInsets.bottom));
-//
-//            return insets;
-//        });
+        ViewCompat.setOnApplyWindowInsetsListener(binding.nestedScrollView, (v, insets) -> {
+            Insets imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime());
+            Insets navInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            // Thêm padding dưới tương ứng với chiều cao bàn phím hoặc thanh điều hướng
+            v.setPadding(0, 0, 0, Math.max(imeInsets.bottom, navInsets.bottom));
+
+            return insets;
+        });
 
 // Tự động scroll đến ô input đang focus khi bàn phím mở
         binding.nestedScrollView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {

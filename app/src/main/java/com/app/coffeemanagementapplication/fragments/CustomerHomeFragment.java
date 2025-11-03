@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,11 +54,13 @@ public class CustomerHomeFragment extends Fragment {
     private FragmentCustomerHomeBinding binding;
     private final Handler sliderHandler = new Handler();
     private Runnable sliderRunnable;
-    // Dữ liệu hiển thị
-    private List<ProductRating> productRatings;   // dữ liệu hiển thị
+    private List<ProductRating> allProductRatings;        // list gốc
+    private List<ProductRating> displayedProductRatings;  // list hiển thị sau filter
+    private String currentSort = null;
     private ProductAdapter productAdapter;
     private Integer selectedCategoryId = null;    // danh mục hiện tại
     private String currentFilterName = null;      // tên filter hiện tại
+    private IFeedbackRepo feedbackRepo;
 
     public CustomerHomeFragment() {
         // Required empty public constructor
@@ -196,7 +199,7 @@ public class CustomerHomeFragment extends Fragment {
         // Xử lý khi click category
         adapter.setOnCategoryClickListener(category -> {
             selectedCategoryId = category.getId() == -1 ? null : category.getId();
-            applyFilter(selectedCategoryId, currentFilterName);
+            applyFilter();
         });
     }
 
@@ -215,10 +218,14 @@ public class CustomerHomeFragment extends Fragment {
         binding.rcvProductFilter.setAdapter(filterAdapter);
 
         filterAdapter.setOnFilterClickListener(filterName -> {
-            currentFilterName = "Tất cả".equals(filterName) ? null : filterName;
-            applyFilter(selectedCategoryId, currentFilterName);
+            if ("Xếp hạng".equals(filterName)) currentSort = "rating";
+            else if ("Giá".equals(filterName)) currentSort = "price";
+            else currentSort = null;
+
+            applyFilter();
         });
     }
+
 
     // ------------------ PRODUCTS ------------------
     private void setupProductList() {
@@ -227,37 +234,28 @@ public class CustomerHomeFragment extends Fragment {
         IUserRepo userRepo = new UserService(requireContext());
 
         List<Product> products = productRepo.getAllProducts();
-        productRatings = new ArrayList<>();
+
+        allProductRatings = new ArrayList<>();
+        displayedProductRatings = new ArrayList<>();
 
         for (Product p : products) {
-            // Lấy rating trung bình và tổng số feedback
             Float avgRating = feedbackRepo.getAverageRatingByProduct(p.getId());
             int totalFeedback = feedbackRepo.getFeedbackCountByProduct(p.getId());
-
-            // Nếu chưa có feedback -> gắn giá trị mặc định để tránh null
             if (avgRating == null) avgRating = 0f;
 
             List<Feedback> feedbacks = feedbackRepo.getFeedbackByProductId(p.getId());
 
             if (feedbacks.isEmpty()) {
-                // Trường hợp sản phẩm chưa có đánh giá
-                productRatings.add(new ProductRating(
-                        p,
-                        avgRating,
-                        totalFeedback,
-                        "Chưa có đánh giá nào",
-                        "",
-                        ""
+                allProductRatings.add(new ProductRating(
+                        p, avgRating, totalFeedback,
+                        "Chưa có đánh giá nào", "", ""
                 ));
             } else {
-                // Lấy feedback mới nhất hoặc tất cả (tuỳ bạn muốn)
                 Feedback latest = feedbacks.get(feedbacks.size() - 1);
                 Users user = userRepo.getUserById(latest.getUserId());
 
-                productRatings.add(new ProductRating(
-                        p,
-                        avgRating,
-                        totalFeedback,
+                allProductRatings.add(new ProductRating(
+                        p, avgRating, totalFeedback,
                         latest.getComment(),
                         user != null ? user.getFullName() : "Người dùng ẩn danh",
                         latest.getCreatedAt()
@@ -265,12 +263,12 @@ public class CustomerHomeFragment extends Fragment {
             }
         }
 
-        productAdapter = new ProductAdapter(getContext(), productRatings);
+        displayedProductRatings.addAll(allProductRatings);
+
+        productAdapter = new ProductAdapter(getContext(), displayedProductRatings);
         binding.rcvProduct.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rcvProduct.setAdapter(productAdapter);
-
     }
-
 
 
     // ------------------ SEARCH ------------------
@@ -286,38 +284,37 @@ public class CustomerHomeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                applyFilter(selectedCategoryId, currentFilterName);
+                applyFilter();
             }
         });
     }
 
     // ------------------ APPLY FILTER ------------------
-    private void applyFilter(Integer selectedCategoryId, String filterName) {
+    private void applyFilter() {
         String keyword = binding.edtSearch.getText().toString().trim().toLowerCase();
 
-        List<ProductRating> filtered = new ArrayList<>();
-        for (ProductRating pr : productRatings) {
+        displayedProductRatings.clear();
+        for (ProductRating pr : allProductRatings) {
+
             boolean matchCategory = (selectedCategoryId == null)
-                    || (pr.getProduct().getCategoryId() == selectedCategoryId);
+                    || pr.getProduct().getCategoryId() == selectedCategoryId;
+
             boolean matchKeyword = keyword.isEmpty()
                     || pr.getProduct().getName().toLowerCase().contains(keyword);
 
             if (matchCategory && matchKeyword) {
-                filtered.add(pr);
+                displayedProductRatings.add(pr);
             }
         }
 
-        // Sắp xếp
-        if ("Xếp hạng".equals(filterName)) {
-            filtered.sort((a, b) -> Double.compare(b.getAverageRating(), a.getAverageRating())); // giảm dần
-        } else if ("Giá".equals(filterName)) {
-            filtered.sort(Comparator.comparingDouble(a -> a.getProduct().getPrice())); // tăng dần
+        // SORT
+        if ("rating".equals(currentSort)) {
+            displayedProductRatings.sort((a, b) -> Double.compare(b.getAverageRating(), a.getAverageRating()));
+        } else if ("price".equals(currentSort)) {
+            displayedProductRatings.sort(Comparator.comparingDouble(a -> a.getProduct().getPrice()));
         }
-
-        // Cập nhật adapter
-        productAdapter.updateList(filtered);
-        productRatings.clear();
-        productRatings.addAll(filtered);
+        productAdapter.updateList(displayedProductRatings);
     }
+
 
 }

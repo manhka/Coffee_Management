@@ -2,6 +2,7 @@ package com.app.coffeemanagementapplication.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,13 @@ import com.app.coffeemanagementapplication.databinding.ItemProductBinding;
 import com.app.coffeemanagementapplication.models.ProductRating;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private final Context context;
-    private final List<ProductRating> productRatings;
+    private  List<ProductRating> productRatings;
 
     public ProductAdapter(Context context, List<ProductRating> productRatings) {
         this.context = context;
@@ -75,8 +77,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public void updateList(List<ProductRating> newList) {
-        this.productRatings.clear();
-        this.productRatings.addAll(newList);
+        this.productRatings = new ArrayList<>(newList);
         notifyDataSetChanged();
     }
 }
