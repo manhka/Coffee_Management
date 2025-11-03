@@ -98,7 +98,9 @@ public class PaymentOrderActivity extends BaseActivity {
         for (OrderItem orderItem : selectedPendingOrderItem) {
             totalOrder += orderItem.getUnitPrice() * orderItem.getQuantity();
         }
-        binding.imvBtnBack.setOnClickListener(v -> finish());
+        binding.imvBtnBack.setOnClickListener(v -> {
+            finish();
+        });
         int addressId = MySharePrefers.getAddressId();
         if (addressId != -1) {
             ShippingAddress shippingAddress = addressRepo.getAddressById(addressId);
@@ -134,6 +136,7 @@ public class PaymentOrderActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(PaymentOrderActivity.this, ChoosingAddressActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         binding.llSelectPayment.setOnClickListener(new View.OnClickListener() {

@@ -64,6 +64,7 @@ public class PaymentMethodActivity extends BaseActivity {
                 MySharePrefers.setPaymentMethodId(currentPaymentMethodId);
                 Intent intent= new Intent(PaymentMethodActivity.this, PaymentOrderActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

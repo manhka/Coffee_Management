@@ -62,6 +62,7 @@ public class ChoosingDiscountActivity extends BaseActivity {
                 MySharePrefers.setDiscountId(discountId);
                 Intent intent= new Intent(ChoosingDiscountActivity.this, PaymentOrderActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

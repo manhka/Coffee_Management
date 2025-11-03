@@ -69,6 +69,7 @@ public class ChoosingAddressActivity extends BaseActivity {
                 MySharePrefers.setAddressId(currentShippingAddressId);
                 Intent intent= new Intent(ChoosingAddressActivity.this, PaymentOrderActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         binding.btnAddAddress.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +84,7 @@ public class ChoosingAddressActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ChoosingAddressActivity.this, PaymentOrderActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
