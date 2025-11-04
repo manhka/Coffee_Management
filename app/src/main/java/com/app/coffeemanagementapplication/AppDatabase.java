@@ -22,7 +22,7 @@ import com.app.coffeemanagementapplication.models.Product;
 import com.app.coffeemanagementapplication.models.ShippingAddress;
 import com.app.coffeemanagementapplication.models.Users;
 
-@Database(entities = {Payment.class, Product.class, Category.class, Order.class, Feedback.class, Users.class, OrderItem.class, Discount.class, ShippingAddress.class}, version = 1)
+@Database(entities = {Payment.class, Product.class, Category.class, Order.class, Feedback.class, Users.class, OrderItem.class, Discount.class, ShippingAddress.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase  {
     public abstract IProductDao productDao();
     public abstract IFeedbackDao feedbackDao();

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.CurrencyUtils;
+import com.app.coffeemanagementapplication.MySharePrefers;
 import com.app.coffeemanagementapplication.databinding.ActivityProductDetailBinding;
 import com.app.coffeemanagementapplication.databinding.CustomToastBinding;
 import com.app.coffeemanagementapplication.models.Feedback;
@@ -212,6 +213,8 @@ public class ProductDetailActivity extends BaseActivity {
         item.setIce(ice);
         item.setTemperature(temperature);
         item.setNote(note);
+        int userId= MySharePrefers.getUserId();
+        item.setUserId(userId);
         item.setOrderItemStatus(OrderItemStatus.PENDING.getValue());
         IOrderItemRepo orderItemRepo = new OrderItemService(this);
         orderItemRepo.insertOrderItem(item);

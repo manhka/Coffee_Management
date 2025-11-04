@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.coffeemanagementapplication.CurrencyUtils;
+import com.app.coffeemanagementapplication.MySharePrefers;
 import com.app.coffeemanagementapplication.activities.PaymentOrderActivity;
 import com.app.coffeemanagementapplication.adapters.PendingOrderAdapter;
 import com.app.coffeemanagementapplication.databinding.FragmentPendingOrdersBinding;
@@ -67,7 +68,7 @@ public class PendingOrdersFragment extends Fragment {
     }
 
     private void updateContinueButton() {
-        List<OrderItem> checkedOrderItems = orderItemRepo.getAllSelectedOrderItemsByStatus(OrderItemStatus.PENDING.getValue());
+        List<OrderItem> checkedOrderItems = orderItemRepo.getAllSelectedOrderItemsByStatusAndUserId(OrderItemStatus.PENDING.getValue(), MySharePrefers.getUserId());
 
         if (checkedOrderItems.isEmpty()) {
             binding.btnContinues.setEnabled(false);
@@ -79,7 +80,7 @@ public class PendingOrdersFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        orderItems = orderItemRepo.getAllOrderItemsByStatus(OrderItemStatus.PENDING.getValue());
+        orderItems = orderItemRepo.getAllOrderItemsByStatusAndUserId(OrderItemStatus.PENDING.getValue(),MySharePrefers.getUserId());
         adapter = new PendingOrderAdapter(requireContext(), orderItems, productRepo);
         binding.rcvPendingOrders.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rcvPendingOrders.setAdapter(adapter);
@@ -121,7 +122,7 @@ public class PendingOrdersFragment extends Fragment {
      */
     private double calculateTotalFromDb() {
         double total = 0;
-        List<OrderItem> items = orderItemRepo.getAllOrderItemsByStatus(OrderItemStatus.PENDING.getValue());
+        List<OrderItem> items = orderItemRepo.getAllOrderItemsByStatusAndUserId(OrderItemStatus.PENDING.getValue(),MySharePrefers.getUserId());
         for (OrderItem item : items) {
             if (item.isSelected()) {
                 Product product = productRepo.getProductById(item.getProductId());
