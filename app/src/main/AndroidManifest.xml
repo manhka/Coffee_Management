@@ -15,6 +15,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CoffeeManagementApplication">
         <activity
+            android:name=".activities.UpdateOrderStatusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.OrderDetailStaffActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.StaffHomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.ProductFeedbackActivity"
             android:exported="false" />
         <activity
@@ -37,13 +52,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.CustomerHomeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />

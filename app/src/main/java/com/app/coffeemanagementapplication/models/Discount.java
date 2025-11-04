@@ -32,11 +32,11 @@ public class Discount {
         this.description = description;
         this.condition = condition;
         this.value = value;
-        this.hint = hint;
+        this.hint = null;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isActive = isActive;
-        this.isDefault = isDefault;
+        this.isDefault = false;
     }
 
 
@@ -47,11 +47,11 @@ public class Discount {
         this.description = description;
         this.condition = condition;
         this.value = value;
-        this.hint = hint;
+        this.hint = null;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isActive = isActive;
-        this.isDefault = isDefault;
+        this.isDefault = false;
     }
 
     public int getId() {
