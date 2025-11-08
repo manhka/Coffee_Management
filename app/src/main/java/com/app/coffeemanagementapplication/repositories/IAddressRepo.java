@@ -22,8 +22,11 @@ public interface IAddressRepo {
     void insertAddress(ShippingAddress address);
 
     List<ShippingAddress> getAddressesByUser(int userId);
+    ShippingAddress getDefaultAddressByUserId(int userId);
 
     void deleteAddress(int id);
+
+    void updateAddress(ShippingAddress address);
 
     void clearDefaultAddress(int userId);
 

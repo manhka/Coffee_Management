@@ -4,6 +4,7 @@ package com.app.coffeemanagementapplication.daos;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.app.coffeemanagementapplication.models.ShippingAddress;
 
@@ -47,4 +48,8 @@ public interface IAddressDao {
     // Đặt 1 địa chỉ làm mặc định
     @Query("UPDATE ShippingAddress SET isDefault = 1 WHERE id = :addressId")
     void setDefaultAddress(int addressId);
+
+    // Lấy địa chỉ mặc định của người dùng
+    @Query("SELECT * FROM ShippingAddress WHERE userId = :userId AND isDefault = 1 LIMIT 1")
+    ShippingAddress getDefaultAddressByUserId(int userId);
 }

@@ -1,5 +1,5 @@
 package com.app.coffeemanagementapplication.services;
-
+import android.app.Application;
 import android.content.Context;
 
 import com.app.coffeemanagementapplication.AppDatabase;
@@ -27,17 +27,17 @@ public class UserService implements IUserRepo {
 
     @Override
     public void insertUsers(List<Users> users) {
-
+        userDao.insertUsers(users);
     }
 
     @Override
     public void updateUser(Users user) {
-
+        userDao.updateUser(user);
     }
 
     @Override
     public void deleteUser(Users user) {
-
+        userDao.deleteUser(user);
     }
 
     @Override
@@ -52,11 +52,14 @@ public class UserService implements IUserRepo {
 
     @Override
     public Users getUserByEmail(String email) {
-        return null;
+        return userDao.getUserByEmail(email);
     }
 
     @Override
     public Users login(String email, String password) {
-        return null;
+        return userDao.login(email, password);
+    }
+    public boolean isEmailExists(String email) {
+        return userDao.countUserByEmail(email) > 0;
     }
 }

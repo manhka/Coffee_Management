@@ -7,4 +7,9 @@
     <color name="brown_dark">#5D4037</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gold">#FFD700</color>
+    <color name="brand_brown_dark">#4E342E</color>
+    <color name="brand_brown_medium">#795548</color>
+    <color name="brand_brown_light">#A1887F</color>
+    <color name="brand_background">#EFEBE9</color>
+    <color name="brand_divider">#D7CCC8</color>
 </resources>

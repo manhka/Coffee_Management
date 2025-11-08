@@ -46,5 +46,10 @@ public interface IUserDao {
     // Kiểm tra đăng nhập
     @Query("SELECT * FROM Users WHERE email = :email AND password = :password LIMIT 1")
     Users login(String email, String password);
+
+    // Kiểm tra email tồn tại
+    @Query("SELECT COUNT(*) FROM Users WHERE email = :email")
+    int countUserByEmail(String email);
 }
+
 
