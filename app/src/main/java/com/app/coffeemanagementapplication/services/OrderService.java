@@ -8,6 +8,7 @@ import com.app.coffeemanagementapplication.daos.IOrderDao;
 import com.app.coffeemanagementapplication.models.Order;
 import com.app.coffeemanagementapplication.repositories.IOrderRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService implements IOrderRepo {
@@ -44,7 +45,7 @@ public class OrderService implements IOrderRepo {
     }
 
     @Override
-    public long  insertOrder(Order order) {
+    public long insertOrder(Order order) {
         return orderDao.insertOrder(order);
     }
 
@@ -61,5 +62,8 @@ public class OrderService implements IOrderRepo {
     @Override
     public List<Order> searchOrders(Integer userId, String status, String date) {
         return orderDao.searchOrders(userId, status, date);
+    }
+    public double getRevenueByDate(String date) {
+        return orderDao.getRevenueByDate(date);
     }
 }

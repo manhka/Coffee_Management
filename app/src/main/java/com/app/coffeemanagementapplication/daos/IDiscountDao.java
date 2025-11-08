@@ -1,8 +1,10 @@
 package com.app.coffeemanagementapplication.daos;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.app.coffeemanagementapplication.models.Discount;
 
@@ -12,6 +14,11 @@ import java.util.List;
 public interface IDiscountDao {
     @Query("SELECT * FROM Discounts")
     List<Discount> getAllDiscounts();
+    @Update
+    void updateDiscount(Discount discount);
+
+    @Delete
+    void deleteDiscount(Discount discount);
 
     @Insert
     void insertDiscount(Discount discount);
@@ -24,5 +31,4 @@ public interface IDiscountDao {
 
     @Query("UPDATE Discounts SET isDefault = 1 WHERE id = :discountId")
     void setDefaultDiscount(int discountId);
-
 }

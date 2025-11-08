@@ -20,8 +20,11 @@ public interface IOrderDao {
     List<Order> getOrdersByUserId(int userId);
     @Query("SELECT * FROM Orders WHERE orderStatus = :status")
     List<Order> getOrdersByStatus(String status);
-    @Query("SELECT * FROM Orders WHERE orderDate = :date")
+    @Query("SELECT * FROM Orders WHERE orderDate LIKE :date || '%'")
     List<Order> getOrdersByDate(String date);
+
+    @Query("SELECT SUM(totalAmount) FROM Orders WHERE orderDate LIKE :date || '%'")
+    double getRevenueByDate(String date);
 
     @Insert
     long  insertOrder(Order order);
@@ -32,5 +35,6 @@ public interface IOrderDao {
     void deleteOrderById(int id);
     @Query("SELECT * FROM Orders WHERE userId = :userId AND orderStatus = :status AND orderDate = :date")
     List<Order> searchOrders(Integer userId, String status, String date);
+
 
 }

@@ -8,7 +8,6 @@ import com.app.coffeemanagementapplication.daos.IDiscountDao;
 import com.app.coffeemanagementapplication.models.Discount;
 import com.app.coffeemanagementapplication.repositories.IDiscountRepo;
 
-import java.util.Collections;
 import java.util.List;
 
 public class DiscountService implements IDiscountRepo {
@@ -32,6 +31,16 @@ public class DiscountService implements IDiscountRepo {
     @Override
     public Discount getDiscountById(int id) {
         return discountDao.getDiscountById(id);
+    }
+
+    @Override
+    public void updateDiscount(Discount discount) {
+        discountDao.updateDiscount(discount);
+    }
+
+    @Override
+    public void deleteDiscount(Discount discount) {
+        discountDao.deleteDiscount(discount);
     }
 
     @Override
