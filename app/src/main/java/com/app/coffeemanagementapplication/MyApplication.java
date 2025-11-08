@@ -123,6 +123,40 @@ public class MyApplication extends Application {
                 ,
                 "2025-10-28 10:10:00"
         ));
+
+        // Staff accounts for testing
+        userRepo.insertUser(new Users(
+                "Lê Văn C",
+                "staff1@example.com",
+                "staff123",
+                RoleType.STAFF,
+                "0912345678",
+                "2025-10-28 10:15:00",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHfd3PPulVSp4ZbuBFNkePoUR_fLJQe474Ag&s",
+                "2025-10-28 10:15:00"
+        ));
+
+        userRepo.insertUser(new Users(
+                "Phạm Thị D",
+                "staff2@example.com",
+                "staff123",
+                RoleType.STAFF,
+                "0923456789",
+                "2025-10-28 10:20:00",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHfd3PPulVSp4ZbuBFNkePoUR_fLJQe474Ag&s",
+                "2025-10-28 10:20:00"
+        ));
+
+        userRepo.insertUser(new Users(
+                "Hoàng Văn E",
+                "staff3@example.com",
+                "staff123",
+                RoleType.STAFF,
+                "0934567890",
+                "2025-10-28 10:25:00",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHfd3PPulVSp4ZbuBFNkePoUR_fLJQe474Ag&s",
+                "2025-10-28 10:25:00"
+        ));
     }
 
     // 🟫 Seed Category
