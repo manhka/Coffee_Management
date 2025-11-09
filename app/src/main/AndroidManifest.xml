@@ -41,6 +41,21 @@
             android:name=".activities.CustomerHomeActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.UpdateOrderStatusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.OrderDetailStaffActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.StaffHomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.ProductFeedbackActivity"
             android:exported="false" />
         <activity
@@ -62,6 +77,11 @@
             android:name=".activities.ProductDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.CustomerHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
             android:name=".activities.DiscountFormActivity"
             android:exported="false"/>
         <activity
