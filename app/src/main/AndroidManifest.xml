@@ -56,6 +56,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.ProductFormActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ProductFeedbackActivity"
             android:exported="false" />
         <activity

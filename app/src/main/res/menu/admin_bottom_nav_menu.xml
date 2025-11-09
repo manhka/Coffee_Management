@@ -6,6 +6,10 @@
         android:icon="@drawable/home_ic"
         android:title="Trang chủ" />
     <item
+        android:id="@+id/nav_product"
+        android:icon="@drawable/ic_product"
+        android:title="Sản phẩm" />
+    <item
         android:id="@+id/nav_discount"
         android:icon="@drawable/ic_dashboard"
         android:title="Discount" />
