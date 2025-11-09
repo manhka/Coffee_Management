@@ -47,13 +47,14 @@ public class OrderItem {
     private String orderItemStatus;
     private String note;
     private boolean isSelected = false;
+    private float rating = 0.0f; // Thêm trường rating
 
     // 🔹 Constructors
     public OrderItem() {
     }
 
     // constructor mới có userId
-    public OrderItem(int id, Integer orderId, int productId, Integer userId, int quantity, double unitPrice, double subtotal, String temperature, String size, String sugar, String ice, String orderItemStatus, String note, boolean isSelected) {
+    public OrderItem(int id, Integer orderId, int productId, Integer userId, int quantity, double unitPrice, double subtotal, String temperature, String size, String sugar, String ice, String orderItemStatus, String note, boolean isSelected, float rating) {
         this.id = id;
         this.orderId = orderId;
         this.productId = productId;
@@ -68,9 +69,10 @@ public class OrderItem {
         this.orderItemStatus = orderItemStatus;
         this.note = note;
         this.isSelected = isSelected;
+        this.rating = rating;
     }
 
-    public OrderItem(Integer orderId, int productId, Integer userId, int quantity, double unitPrice, double subtotal, String temperature, String size, String sugar, String ice, String orderItemStatus, String note, boolean isSelected) {
+    public OrderItem(Integer orderId, int productId, Integer userId, int quantity, double unitPrice, double subtotal, String temperature, String size, String sugar, String ice, String orderItemStatus, String note, boolean isSelected, float rating) {
         this.orderId = orderId;
         this.productId = productId;
         this.userId = userId;
@@ -84,6 +86,7 @@ public class OrderItem {
         this.orderItemStatus = orderItemStatus;
         this.note = note;
         this.isSelected = isSelected;
+        this.rating = rating;
     }
 
     // 🔹 Getter & Setter
@@ -197,5 +200,13 @@ public class OrderItem {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }

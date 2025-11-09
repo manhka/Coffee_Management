@@ -175,14 +175,22 @@ public class ProductDetailActivity extends BaseActivity {
             }
         });
 
+                Intent intent = new Intent(ProductDetailActivity.this, ThankYouActivity.class);
+                intent.putExtra("productName", product.getName());
+                intent.putExtra("productImageUrl", product.getImageUrl());
+                intent.putExtra("quantity", currentQuantity);
+                intent.putExtra("totalPrice", getTotalPrice());
         binding.layoutRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProductDetailActivity.this, ProductFeedbackActivity.class);
                 intent.putExtra("productId", product.getId());
                 startActivity(intent);
+                finish();
             }
         });
+
+
     }
 
     private void updateButtonState(int quantity) {

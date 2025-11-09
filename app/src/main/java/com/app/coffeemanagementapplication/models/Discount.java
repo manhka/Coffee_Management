@@ -36,7 +36,7 @@ public class Discount {
         this.startDate = startDate;
         this.endDate = endDate;
         this.isActive = isActive;
-        this.isDefault = false;
+        this.isDefault = isDefault;
     }
 
 
@@ -51,7 +51,7 @@ public class Discount {
         this.startDate = startDate;
         this.endDate = endDate;
         this.isActive = isActive;
-        this.isDefault = false;
+        this.isDefault = isDefault;
     }
 
     public int getId() {

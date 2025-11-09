@@ -35,6 +35,13 @@ public class StaffHomeActivity extends BaseActivity {
         setupRecyclerView();
         setupFilterButtons();
         loadOrders();
+        binding.btnOpenProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(StaffHomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initRepository() {

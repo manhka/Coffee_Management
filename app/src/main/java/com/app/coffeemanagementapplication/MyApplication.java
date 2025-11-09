@@ -82,7 +82,7 @@ public class MyApplication extends Application {
         }
         List<Order> orderList = orderRepo.getAllOrders();
         if (orderList == null || orderList.isEmpty()) {
-            seedOrders(orderRepo, orderItemRepo);
+//            seedOrders(orderRepo, orderItemRepo);
         }
     }
 
@@ -90,23 +90,22 @@ public class MyApplication extends Application {
         userRepo.insertUser(new Users(
 
                 "Nguyễn Văn A",
-                "vana@example.com",
+                "admin@gmail.com",
                 "123456",
-                RoleType.CUSTOMER,
+                RoleType.ADMIN,
                 "0987654321",
                 "2025-10-28 10:00:00",
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHfd3PPulVSp4ZbuBFNkePoUR_fLJQe474Ag&s"
                 ,
                 "2025-10-28 10:00:00"
-
         ));
 
         userRepo.insertUser(new Users(
 
                 "Trần Thị B",
-                "thib@example.com",
+                "staff@gmail.com",
                 "123456",
-                RoleType.CUSTOMER,
+                RoleType.STAFF,
                 "0978123456",
                 "2025-10-28 10:05:00",
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHfd3PPulVSp4ZbuBFNkePoUR_fLJQe474Ag&s"
@@ -301,166 +300,167 @@ public class MyApplication extends Application {
     }
 
     // 🟫 Seed Orders and OrderItems
-    private void seedOrders(IOrderRepo orderRepo, IOrderItemRepo orderItemRepo) {
-        // Đơn hàng 1: PENDING - Chờ xử lý
-        long orderId1 = orderRepo.insertOrder(new Order(
-                1, // userId
-                null, // staffId - chưa có nhân viên xử lý
-                null, // discountId
-                "2025-11-04 08:30:00",
-                75000, // totalAmount
-                "CASH",
-                "pending",
-                "Giao hàng trước 10h sáng",
-                null // deliveryAddressId
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId1, 1, 2, 25000, 50000,
-                "Lạnh", "Vừa", "Bình Thường", "Bình Thường",
-                "pending", "", false
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId1, 3, 1, 35000, 35000,
-                "Lạnh", "Lớn", "Ít Đường", "Ít Đá",
-                "pending", "Không đá", false
-        ));
-
-        // Đơn hàng 2: PREPARING - Đang chuẩn bị
-        long orderId2 = orderRepo.insertOrder(new Order(
-                2, // userId
-                3, // staffId - Admin đang xử lý
-                1, // discountId
-                "2025-11-04 09:15:00",
-                90000,
-                "QR",
-                "preparing",
-                "Làm nhanh giúp em",
-                null
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId2, 2, 3, 30000, 90000,
-                "Nóng", "Nhỏ", "Bình Thường", "Không Đá",
-                "preparing", "", false
-        ));
-
-        // Đơn hàng 3: COMPLETED - Hoàn thành
-        long orderId3 = orderRepo.insertOrder(new Order(
-                1,
-                3,
-                null,
-                "2025-11-04 07:45:00",
-                105000,
-                "E_WALLET",
-                "completed",
-                "",
-                null
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId3, 1, 1, 25000, 25000,
-                "Lạnh", "Vừa", "Bình Thường", "Bình Thường",
-                "completed", "", false
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId3, 4, 2, 40000, 80000,
-                "Lạnh", "Lớn", "Ít Đường", "Ít Đá",
-                "completed", "", false
-        ));
-
-        // Đơn hàng 4: DELIVERED - Đã giao
-        long orderId4 = orderRepo.insertOrder(new Order(
-                2,
-                3,
-                2,
-                "2025-11-03 16:20:00",
-                140000,
-                "CASH",
-                "delivered",
-                "Cảm ơn quán",
-                null
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId4, 1, 2, 25000, 50000,
-                "Lạnh", "Vừa", "Bình Thường", "Bình Thường",
-                "delivered", "", false
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId4, 2, 1, 30000, 30000,
-                "Nóng", "Vừa", "Bình Thường", "Không Đá",
-                "delivered", "", false
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId4, 3, 2, 35000, 70000,
-                "Lạnh", "Lớn", "Ít Đường", "Ít Đá",
-                "delivered", "", false
-        ));
-
-        // Đơn hàng 5: PENDING - Đơn lớn
-        long orderId5 = orderRepo.insertOrder(new Order(
-                1,
-                null,
-                null,
-                "2025-11-04 10:00:00",
-                200000,
-                "QR",
-                "pending",
-                "Đơn cho văn phòng, giao trước 11h",
-                null
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId5, 1, 4, 25000, 100000,
-                "Lạnh", "Vừa", "Bình Thường", "Bình Thường",
-                "pending", "", false
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId5, 2, 2, 30000, 60000,
-                "Nóng", "Vừa", "Bình Thường", "Không Đá",
-                "pending", "", false
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId5, 4, 1, 40000, 40000,
-                "Lạnh", "Lớn", "Ít Đường", "Ít Đá",
-                "pending", "", false
-        ));
-
-        // Đơn hàng 6: PREPARING
-        long orderId6 = orderRepo.insertOrder(new Order(
-                2,
-                3,
-                null,
-                "2025-11-04 09:45:00",
-                65000,
-                "CASH",
-                "preparing",
-                "",
-                null
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId6, 3, 1, 35000, 35000,
-                "Lạnh", "Vừa", "Bình Thường", "Bình Thường",
-                "preparing", "", false
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId6, 2, 1, 30000, 30000,
-                "Nóng", "Nhỏ", "Bình Thường", "Không Đá",
-                "preparing", "", false
-        ));
-
-        // Đơn hàng 7: COMPLETED
-        long orderId7 = orderRepo.insertOrder(new Order(
-                1,
-                3,
-                1,
-                "2025-11-03 14:30:00",
-                120000,
-                "E_WALLET",
-                "completed",
-                "Rất ngon",
-                null
-        ));
-        orderItemRepo.insertOrderItem(new OrderItem(
-                (int) orderId7, 4, 3, 40000, 120000,
-                "Lạnh", "Lớn", "Ít Đường", "Ít Đá",
-                "completed", "", false
-        ));
-    }
+//    private void seedOrders(IOrderRepo orderRepo, IOrderItemRepo orderItemRepo) {
+//        // Đơn hàng 1: PENDING - Chờ xử lý
+//        long orderId1 = orderRepo.insertOrder(new Order(
+//                1, // userId
+//                null, // staffId - chưa có nhân viên xử lý
+//                null, // discountId
+//                "2025-11-04 08:30:00",
+//                75000, // totalAmount
+//                "CASH",
+//                "pending",
+//                "Giao hàng trước 10h sáng",
+//                null // deliveryAddressId
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId1, 1, 2, 25000, 50000,
+//                "Lạnh", "Vừa", "Bình Thường", "Bình Thường",
+//                "pending", "", false
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId1, 3, 1, 35000, 35000,
+//                "Lạnh", "Lớn", "Ít Đường", "Ít Đá",
+//                "pending", "Không đá", false
+//        ));
+//
+//        // Đơn hàng 2: PREPARING - Đang chuẩn bị
+//        long orderId2 = orderRepo.insertOrder(new Order(
+//                2, // userId
+//                3, // staffId - Admin đang xử lý
+//                1, // discountId
+//                "2025-11-04 09:15:00",
+//                90000,
+//                "QR",
+//                "preparing",
+//                "Làm nhanh giúp em",
+//                null
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId2, 2, 3, 30000, 90000,
+//                "Nóng", "Nhỏ", "Bình Thường", "Không Đá",
+//                "preparing", "", false
+//        ));
+//
+//        // Đơn hàng 3: COMPLETED - Hoàn thành
+//        long orderId3 = orderRepo.insertOrder(new Order(
+//                1,
+//                3,
+//                null,
+//                "2025-11-04 07:45:00",
+//                105000,
+//                "E_WALLET",
+//                "completed",
+//                "",
+//                null
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId3, 1, 1, 25000, 25000,
+//                "Lạnh", "Vừa", "Bình Thường", "Bình Thường",
+//                "completed", "", false
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId3, 4, 2, 40000, 80000,
+//                "Lạnh", "Lớn", "Ít Đường", "Ít Đá",
+//                "completed", "", false
+//        ));
+//
+//        // Đơn hàng 4: DELIVERED - Đã giao
+//        long orderId4 = orderRepo.insertOrder(new Order(
+//                2,
+//                3,
+//                2,
+//                "2025-11-03 16:20:00",
+//                140000,
+//                "CASH",
+//                "delivered",
+//                "Cảm ơn quán",
+//                null
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId4, 1, 2, 25000, 50000,
+//                "Lạnh", "Vừa", "Bình Thường", "Bình Thường",
+//                "delivered", "", false
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId4, 2, 1, 30000, 30000,
+//                "Nóng", "Vừa", "Bình Thường", "Không Đá",
+//                "delivered", "", false
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId4, 3, 2, 35000, 70000,
+//                "Lạnh", "Lớn", "Ít Đường", "Ít Đá",
+//                "delivered", "", false
+//        ));
+//
+//        // Đơn hàng 5: PENDING - Đơn lớn
+//        long orderId5 = orderRepo.insertOrder(new Order(
+//                1,
+//                null,
+//                null,
+//                "2025-11-04 10:00:00",
+//                200000,
+//                "QR",
+//                "pending",
+//                "Đơn cho văn phòng, giao trước 11h",
+//                null
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId5, 1, 4, 25000, 100000,
+//                "Lạnh", "Vừa", "Bình Thường", "Bình Thường",
+//                "pending", "", false
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId5, 2, 2, 30000, 60000,
+//                "Nóng", "Vừa", "Bình Thường", "Không Đá",
+//                "pending", "", false
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId5, 4, 1, 40000, 40000,
+//                "Lạnh", "Lớn", "Ít Đường", "Ít Đá",
+//                "pending", "", false
+//        ));
+//
+//        // Đơn hàng 6: PREPARING
+//        long orderId6 = orderRepo.insertOrder(new Order(
+//                2,
+//                3,
+//                null,
+//                "2025-11-04 09:45:00",
+//                65000,
+//                "CASH",
+//                "preparing",
+//                "",
+//                null
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId6, 3, 1, 35000, 35000,
+//                "Lạnh", "Vừa", "Bình Thường", "Bình Thường",
+//                "preparing", "", false
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId6, 2, 1, 30000, 30000,
+//                "Nóng", "Nhỏ", "Bình Thường", "Không Đá",
+//                "preparing", "", false
+//        ));
+//
+//        // Đơn hàng 7: COMPLETED
+//        long orderId7 = orderRepo.insertOrder(new Order(
+//                1,
+//                3,
+//                1,
+//                "2025-11-03 14:30:00",
+//                120000,
+//                "E_WALLET",
+//                "completed",
+//                "Rất ngon",
+//                null
+//        ));
+//        orderItemRepo.insertOrderItem(new OrderItem(
+//                (int) orderId7, 4, 3, 40000, 120000,
+//                "Lạnh", "Lớn", "Ít Đường", "Ít Đá",
+//                "completed", "", false
+//        ));
+//    }
 }
+

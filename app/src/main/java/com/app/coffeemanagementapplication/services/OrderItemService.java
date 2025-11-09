@@ -30,6 +30,11 @@ public class OrderItemService implements IOrderItemRepo {
     }
 
     @Override
+    public int getOrderItemCountByOrderId(int orderId) {
+        return orderItemDao.getOrderItemCountByOrderId(orderId);
+    }
+
+    @Override
     public OrderItem getOrderItemById(int id) {
         return orderItemDao.getOrderItemById(id);
     }

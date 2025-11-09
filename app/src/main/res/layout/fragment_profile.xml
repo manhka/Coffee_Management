@@ -1,14 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ProfileFragment">
+    android:background="@color/brand_background"
+    android:paddingTop="40dp"
+    tools:context=".activities.ProfileActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="10dp"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:id="@+id/imvBtnBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
+                android:src="@drawable/back_ic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Thông Tin Tài Khoản"
+                android:textColor="@color/brand_brown_dark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="12dp"
+                        android:text="Họ và tên"
+                        android:textColor="@color/brand_brown_light"
+                        android:textSize="16sp"
+                        app:drawableTint="@color/brand_brown_light" />
+
+                    <TextView
+                        android:id="@+id/textViewFullName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/brand_brown_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="Nguyễn Văn A" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/brand_divider" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="12dp"
+                        android:text="Email"
+                        android:textColor="@color/brand_brown_light"
+                        android:textSize="16sp"
+                        app:drawableTint="@color/brand_brown_light" />
+
+                    <TextView
+                        android:id="@+id/textViewEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/brand_brown_dark"
+                        android:textSize="16sp"
+                        tools:text="test@gmail.com" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/brand_divider" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="12dp"
+                        android:text="Số điện thoại"
+                        android:textColor="@color/brand_brown_light"
+                        android:textSize="16sp"
+                        app:drawableTint="@color/brand_brown_light" />
+
+                    <TextView
+                        android:id="@+id/textViewPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/brand_brown_dark"
+                        android:textSize="16sp"
+                        tools:text="0987654321" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/brand_divider" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="12dp"
+                        android:text="Địa chỉ"
+                        android:textColor="@color/brand_brown_light"
+                        android:textSize="16sp"
+                        app:drawableTint="@color/brand_brown_light" />
+
+                    <TextView
+                        android:id="@+id/textViewDefaultAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="100dp"
+                        android:gravity="end"
+                        android:textColor="@color/brand_brown_dark"
+                        android:textSize="16sp"
+                        tools:text="Số 123, P. ABC, Q. XYZ, TP. HCM" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Cài đặt"
+            android:textColor="@color/brand_brown_dark"
+            android:textStyle="bold" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="8dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonEditProfile"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="20dp"
+                    android:text="Chỉnh sửa thông tin"
+                    android:textColor="@color/brand_brown_dark"
+                    app:iconPadding="16dp"
+                    app:iconTint="@color/brand_brown_medium" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonLogout"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="Đăng xuất"
+            android:textColor="@color/brand_brown_medium"
+            app:cornerRadius="8dp"
+            app:iconTint="@color/brand_brown_medium"
+            app:strokeColor="@color/brand_brown_light" />
+
+    </LinearLayout>
+</ScrollView>

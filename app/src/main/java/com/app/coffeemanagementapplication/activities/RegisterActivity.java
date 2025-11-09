@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.databinding.CustomToastBinding;
 import com.app.coffeemanagementapplication.databinding.CustomToastFailBinding;
 import com.app.coffeemanagementapplication.databinding.ActivityRegisterBinding;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
 
     private ActivityRegisterBinding binding;
     private UserService userService;

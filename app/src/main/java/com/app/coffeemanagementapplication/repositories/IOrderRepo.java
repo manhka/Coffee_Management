@@ -13,6 +13,8 @@ public interface IOrderRepo {
 
     List<Order> getOrdersByStatus(String status);
 
+    List<Order> getOrdersByStatusAndUserId(String status, int userId);
+
     List<Order> getOrdersByDate(String date);
 
     long  insertOrder(Order order);

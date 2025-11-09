@@ -6,13 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.R;
 import com.app.coffeemanagementapplication.fragments.AdminDashboardFragment;
 import com.app.coffeemanagementapplication.fragments.DiscountListFragment;
 import com.app.coffeemanagementapplication.fragments.ProductListFragment;
+import com.app.coffeemanagementapplication.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class AdminHomeActivity extends AppCompatActivity {
+public class AdminHomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,8 @@ public class AdminHomeActivity extends AppCompatActivity {
                 selectedFragment = new DiscountListFragment();
             } else if (id == R.id.nav_product) {
                 selectedFragment = new ProductListFragment();
+            }else if (id == R.id.nav_profile) {
+                selectedFragment = new ProfileFragment();
             }
 
             if (selectedFragment != null) {

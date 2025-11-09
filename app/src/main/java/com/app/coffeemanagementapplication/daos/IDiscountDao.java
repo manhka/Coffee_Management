@@ -31,4 +31,5 @@ public interface IDiscountDao {
 
     @Query("UPDATE Discounts SET isDefault = 1 WHERE id = :discountId")
     void setDefaultDiscount(int discountId);
+
 }

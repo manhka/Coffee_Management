@@ -2,10 +2,18 @@ package com.app.coffeemanagementapplication;
 
 import android.os.Bundle;
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 
-// 1. ⚠️ THÊM IMPORT
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import androidx.core.splashscreen.SplashScreen;
+
+import com.app.coffeemanagementapplication.activities.AdminHomeActivity;
+import com.app.coffeemanagementapplication.activities.CustomerHomeActivity;
+import com.app.coffeemanagementapplication.activities.StaffHomeActivity;
 import com.app.coffeemanagementapplication.models.RoleType;
 import com.app.coffeemanagementapplication.activities.LoginActivity;
 import com.app.coffeemanagementapplication.activities.ProfileActivity;
@@ -19,11 +27,19 @@ public class MainActivity extends AppCompatActivity {
         SplashScreen.installSplashScreen(this);
 
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         if (!MySharePrefers.isLoggedIn()) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else {
+
             String roleName = MySharePrefers.getCurrentUserRole();
             RoleType role = null;
             try {
@@ -49,20 +65,17 @@ public class MainActivity extends AppCompatActivity {
         } else {
             switch (role) {
                 case STAFF:
-                    // SỬA TÊN ACTIVITY NÀY thành Activity chính của Staff
-                    // intent = new Intent(MainActivity.this, StaffHomeActivity.class);
-                    // (Tạm thời vẫn trỏ đến Profile để test)
-                    intent = new Intent(MainActivity.this, ProfileActivity.class);
+
+                    intent = new Intent(MainActivity.this, StaffHomeActivity.class);
                     break;
                 case ADMIN:
-                    // SỬA TÊN ACTIVITY NÀY thành Activity chính của Admin
-                    // intent = new Intent(MainActivity.this, AdminHomeActivity.class);
-                    // (Tạm thời vẫn trỏ đến Profile để test)
-                    intent = new Intent(MainActivity.this, ProfileActivity.class);
+
+                    intent = new Intent(MainActivity.this, AdminHomeActivity.class);
                     break;
                 case CUSTOMER:
+                    intent = new Intent(MainActivity.this, CustomerHomeActivity.class);
+                    break;
                 default:
-                    // Trỏ đến ProfileActivity như logic test hiện tại
                     intent = new Intent(MainActivity.this, ProfileActivity.class);
                     break;
             }

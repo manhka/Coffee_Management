@@ -1,5 +1,6 @@
 package com.app.coffeemanagementapplication.services;
 import android.app.Application;
+
 import android.content.Context;
 
 import com.app.coffeemanagementapplication.AppDatabase;
@@ -28,16 +29,19 @@ public class UserService implements IUserRepo {
     @Override
     public void insertUsers(List<Users> users) {
         userDao.insertUsers(users);
+
     }
 
     @Override
     public void updateUser(Users user) {
         userDao.updateUser(user);
+
     }
 
     @Override
     public void deleteUser(Users user) {
         userDao.deleteUser(user);
+
     }
 
     @Override

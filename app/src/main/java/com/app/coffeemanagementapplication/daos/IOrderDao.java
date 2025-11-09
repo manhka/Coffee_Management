@@ -20,9 +20,10 @@ public interface IOrderDao {
     List<Order> getOrdersByUserId(int userId);
     @Query("SELECT * FROM Orders WHERE orderStatus = :status")
     List<Order> getOrdersByStatus(String status);
+    @Query("SELECT * FROM Orders WHERE orderStatus = :status AND userId = :userId")
+    List<Order> getOrdersByStatusAndUserId(String status, int userId);
     @Query("SELECT * FROM Orders WHERE orderDate LIKE :date || '%'")
     List<Order> getOrdersByDate(String date);
-
     @Query("SELECT SUM(totalAmount) FROM Orders WHERE orderDate LIKE :date || '%'")
     double getRevenueByDate(String date);
 

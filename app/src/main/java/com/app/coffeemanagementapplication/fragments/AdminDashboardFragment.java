@@ -154,9 +154,9 @@ public class AdminDashboardFragment extends Fragment implements DateSelectorAdap
         // Cập nhật tiêu đề để cho biết đang xem ngày nào
         txtOrdersTitle.setText("Đơn hàng (" + date + ")");
 
-        if (orders.isEmpty() && getContext() != null) {
-            Toast.makeText(getContext(), "Không có đơn hàng", Toast.LENGTH_SHORT).show();
-        }
+//        if (orders.isEmpty() && getContext() != null) {
+//            Toast.makeText(getContext(), "Không có đơn hàng", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     @Override

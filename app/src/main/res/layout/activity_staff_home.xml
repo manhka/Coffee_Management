@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".activities.StaffHomeActivity">
 
     <!-- Header -->
@@ -13,25 +13,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_brown"
-        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- text bên trái -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="📋 Danh Sách Đơn Đặt Hàng"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Quản lý đơn hàng - Staff Dashboard"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:alpha="0.9" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📋 Danh Sách Đơn Đặt Hàng"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:alpha="0.9"
+                android:text="Quản lý đơn hàng - Staff Dashboard"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- icon profile bên phải -->
+        <ImageView
+            android:id="@+id/btnOpenProfile"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_profile"
+            app:tint="@color/white" />
     </LinearLayout>
 
     <!-- Filter Section -->
@@ -102,7 +120,7 @@
         android:id="@+id/rcvOrders"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        android:padding="16dp" />
 
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.MainActivity;
 import com.app.coffeemanagementapplication.databinding.CustomToastBinding;
 import com.app.coffeemanagementapplication.AppConstants;
@@ -19,7 +20,7 @@ import com.app.coffeemanagementapplication.models.RoleType;
 import com.app.coffeemanagementapplication.models.Users;
 import com.app.coffeemanagementapplication.services.UserService;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private ActivityLoginBinding binding;
     private UserService userService;
@@ -46,18 +47,29 @@ public class LoginActivity extends AppCompatActivity {
         String password = binding.editTextPassword.getText().toString().trim();
 
         boolean isValid = true;
-        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) { isValid = false; }
-        if (TextUtils.isEmpty(password)) {  isValid = false; }
-        if (!isValid) { return; }
+        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            isValid = false;
+        }
+        if (TextUtils.isEmpty(password)) {
+            isValid = false;
+        }
+        if (!isValid) {
+            return;
+        }
 
         try {
             Users user = userService.login(email, password);
-
             if (user != null) {
                 MySharePrefers.saveLoginInfo(user.getId(), user.getRole().name());
 
-                showCustomToast("Đăng nhập thành công!");
-                navigateToHome();
+                if (user.getRole().name().equals(RoleType.ADMIN.name())) {
+                    navigateToAdminHome();
+
+                } else if (user.getRole().name().equals(RoleType.STAFF.name())) {
+                    navigateToStaffHome();
+                } else {
+                    navigateToCustomerHome();
+                }
                 finish();
             } else {
                 showFailToast("Email hoặc mật khẩu không đúng.");
@@ -75,21 +87,24 @@ public class LoginActivity extends AppCompatActivity {
 
 
     // Chuyển hướng màn hình theo vai trò
-    private void navigateToHome() {
-        Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+    private void navigateToAdminHome() {
+        Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    private void showCustomToast(String message) {
-        CustomToastBinding binding = CustomToastBinding.inflate(getLayoutInflater());
-        binding.toastText.setText(message);
-
-        Toast toast = new Toast(getApplicationContext());
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(binding.getRoot());
-        toast.show();
+    private void navigateToCustomerHome() {
+        Intent intent = new Intent(LoginActivity.this, CustomerHomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
+    private void navigateToStaffHome() {
+        Intent intent = new Intent(LoginActivity.this, StaffHomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+
 
     private void showFailToast(String message) {
         CustomToastFailBinding binding = CustomToastFailBinding.inflate(getLayoutInflater());

@@ -3,6 +3,7 @@ package com.app.coffeemanagementapplication.repositories;
 import com.app.coffeemanagementapplication.daos.IOrderDao;
 import com.app.coffeemanagementapplication.models.Order;
 
+import java.util.Collections;
 import java.util.List;
 
 public class OrderRepository implements IOrderRepo {
@@ -30,6 +31,11 @@ public class OrderRepository implements IOrderRepo {
     @Override
     public List<Order> getOrdersByStatus(String status) {
         return orderDao.getOrdersByStatus(status);
+    }
+
+    @Override
+    public List<Order> getOrdersByStatusAndUserId(String status, int userId) {
+        return orderDao.getOrdersByStatusAndUserId(status,userId);
     }
 
     @Override

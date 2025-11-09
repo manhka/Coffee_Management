@@ -21,6 +21,9 @@ public interface IOrderItemDao {
     @Query("SELECT * FROM OrderItems WHERE orderId = :orderId")
     List<OrderItem> getOrderItemsByOrderId(int orderId);
 
+    @Query("SELECT COUNT(*) FROM OrderItems WHERE orderId = :orderId")
+    int getOrderItemCountByOrderId(int orderId);
+
     @Insert
     void insertOrderItem(OrderItem orderItem);
 

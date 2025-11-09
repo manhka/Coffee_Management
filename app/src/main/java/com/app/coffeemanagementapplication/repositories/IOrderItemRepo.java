@@ -14,6 +14,8 @@ public interface IOrderItemRepo {
 
     List<OrderItem> getOrderItemsByOrderId(int orderId);
 
+    int getOrderItemCountByOrderId(int orderId);
+
     void insertOrderItem(OrderItem orderItem);
 
     void updateOrderItem(int id, int quantity, boolean isSelected);

@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.R;
 import com.app.coffeemanagementapplication.models.Discount;
 import com.app.coffeemanagementapplication.services.DiscountService;
@@ -17,7 +18,7 @@ import com.google.android.material.textfield.TextInputLayout; // THÊM
 
 import java.util.Calendar;
 
-public class DiscountFormActivity extends AppCompatActivity {
+public class DiscountFormActivity extends BaseActivity {
 
     private EditText etName, etCode, etDescription, etCondition, etValue, etStartDate, etEndDate;
     private MaterialButton btnSave; // Đổi Button thành MaterialButton

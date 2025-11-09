@@ -40,12 +40,17 @@ public class OrderService implements IOrderRepo {
     }
 
     @Override
+    public List<Order> getOrdersByStatusAndUserId(String status, int userId) {
+        return orderDao.getOrdersByStatusAndUserId(status, userId);
+    }
+
+    @Override
     public List<Order> getOrdersByDate(String date) {
         return orderDao.getOrdersByDate(date);
     }
 
     @Override
-    public long insertOrder(Order order) {
+    public long  insertOrder(Order order) {
         return orderDao.insertOrder(order);
     }
 

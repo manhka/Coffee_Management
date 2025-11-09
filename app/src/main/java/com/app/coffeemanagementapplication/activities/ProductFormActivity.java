@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.R;
 import com.app.coffeemanagementapplication.models.Category;
 import com.app.coffeemanagementapplication.models.Product;
@@ -24,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ProductFormActivity extends AppCompatActivity {
+public class ProductFormActivity extends BaseActivity {
 
     private EditText etName, etDescription, etPrice, etImageUrl;
     private Spinner spinnerCategory;

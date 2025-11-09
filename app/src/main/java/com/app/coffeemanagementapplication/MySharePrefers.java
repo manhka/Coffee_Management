@@ -2,6 +2,7 @@ package com.app.coffeemanagementapplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import static com.app.coffeemanagementapplication.AppConstants.*;
 
 public class MySharePrefers {
@@ -60,30 +61,38 @@ public class MySharePrefers {
     public static void removeKey(String key) {
         sharePref.edit().remove(key).apply();
     }
+
     // ---------- CUSTOM LOGIC ----------
     public static int getAddressId() {
         return getInt("getAddressId", -1);
     }
+
     public static void setAddressId(int addressId) {
         saveKey("getAddressId", addressId);
     }
+
     public static int getUserId() {
         return getInt("getUserId", 1);
     }
+
     public static void setUserId(int userId) {
         saveKey("getUserId", userId);
     }
+
     public static int getPaymentMethodId() {
         return getInt("getPaymentMethodId", -1);
     }
+
     public static void setPaymentMethodId(int paymentMethodId) {
         saveKey("getPaymentMethodId", paymentMethodId);
     }
+
     public static void saveLoginInfo(int userId, String roleName) {
         saveKey(KEY_IS_LOGGED_IN, true);
         saveKey(KEY_USER_ID, userId);
         saveKey(KEY_USER_ROLE, roleName);
     }
+
     public static void clearLoginInfo() {
         saveKey(KEY_IS_LOGGED_IN, false);
         SharedPreferences.Editor editor = sharePref.edit();
@@ -92,23 +101,32 @@ public class MySharePrefers {
         editor.remove(KEY_USER_ROLE);
         editor.apply();
     }
+
     public static boolean isLoggedIn() {
         return getBoolean(KEY_IS_LOGGED_IN, false);
     }
+
     public static int getCurrentUserId() {
         return getInt(KEY_USER_ID, -1);
     }
+
     public static String getCurrentUserRole() {
         return getString(KEY_USER_ROLE, null);
+
+    }
+
     public static int getDiscountId() {
         return getInt("getDiscountId", -1);
     }
+
     public static void setDiscountId(int discountId) {
         saveKey("getDiscountId", discountId);
     }
+
     public static float getTotalOrder() {
         return getFloat("getTotalOrder", -1);
     }
+
     public static void setTotalOrder(float totalOrder) {
         saveKey("getTotalOrder", totalOrder);
     }

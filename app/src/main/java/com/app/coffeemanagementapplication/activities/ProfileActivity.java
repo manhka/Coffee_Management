@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.coffeemanagementapplication.AppConstants;
+import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.activities.LoginActivity;
 import com.app.coffeemanagementapplication.MySharePrefers;
 import com.app.coffeemanagementapplication.models.ShippingAddress;
@@ -17,7 +18,7 @@ import com.app.coffeemanagementapplication.models.Users;
 import com.app.coffeemanagementapplication.services.AddressService;
 import com.app.coffeemanagementapplication.services.UserService;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseActivity {
 
     private ActivityProfileBinding binding;
     private UserService userService;
@@ -40,7 +41,6 @@ public class ProfileActivity extends AppCompatActivity {
             navigateToLogin();
             return;
         }
-
         setupListeners();
     }
 
@@ -51,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
             loadUserProfile();
             loadDefaultAddress();
         }
+        binding.imvBtnBack.setOnClickListener(v -> finish());
     }
 
 

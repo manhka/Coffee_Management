@@ -34,13 +34,15 @@ public class Users {
         this.updatedAt = updatedAt;
     }
 
-    public Users(String fullName, String email,String password, RoleType role, String phone) {
+    public Users(String fullName, String email, String password, RoleType role, String phone) {
         this.fullName = fullName;
         this.email = email;
         this.password = password; // Nên hash
         this.role = role;
         this.phone = phone;
-        // Có thể gán createdAt/updatedAt ở đây
+    }
+
+    // Có thể gán createdAt/updatedAt ở đây
     public Users(String fullName, String email, String password, RoleType role, String phone, String createdAt, String avatarUrl, String updatedAt) {
         this.fullName = fullName;
         this.email = email;
