@@ -28,7 +28,7 @@ public class ChoosingAddressActivity extends BaseActivity {
     private ShippingAddressAdapter adapter;
     private IAddressRepo addressRepo;
     private List<ShippingAddress> shippingAddressList;
-    private int currentShippingAddressId;
+    private int currentShippingAddressId=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +37,41 @@ public class ChoosingAddressActivity extends BaseActivity {
         setContentView(binding.getRoot());
         addressRepo = new AddressService(this);
         shippingAddressList = addressRepo.getAddressesByUser(1);
+        binding.btnSave.setVisibility(View.INVISIBLE);
+        binding.btnSave.setEnabled(false);
+
         adapter = new ShippingAddressAdapter(shippingAddressList, this, position -> {
             currentShippingAddressId = shippingAddressList.get(position).getId();
+
             for (int i = 0; i < shippingAddressList.size(); i++) {
                 shippingAddressList.get(i).setDefault(i == position);
             }
             adapter.notifyDataSetChanged();
+            binding.btnSave.setVisibility(View.VISIBLE);
+            binding.btnSave.setEnabled(true);
         });
+
         binding.rcvAddresses.setAdapter(adapter);
         binding.rcvAddresses.setLayoutManager(new LinearLayoutManager(this));
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        binding.btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addressRepo.clearDefaultAddress(1);
+                addressRepo.setDefaultAddress(currentShippingAddressId, 1);
+                MySharePrefers.setAddressId(currentShippingAddressId);
+                Intent intent= new Intent(ChoosingAddressActivity.this, PaymentOrderActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         binding.btnAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,17 +82,9 @@ public class ChoosingAddressActivity extends BaseActivity {
         binding.imvBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-            }
-        });
-        binding.btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addressRepo.clearDefaultAddress(1);
-                addressRepo.setDefaultAddress(currentShippingAddressId, 1);
-                MySharePrefers.setAddressId(currentShippingAddressId);
-                Intent intent= new Intent(ChoosingAddressActivity.this, PaymentOrderActivity.class);
+                Intent intent = new Intent(ChoosingAddressActivity.this, PaymentOrderActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -18,6 +18,12 @@ import androidx.room.PrimaryKey;
                         parentColumns = "id",
                         childColumns = "productId",
                         onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "userId",
+                        onDelete = ForeignKey.CASCADE
                 )
         }
 )
@@ -28,6 +34,7 @@ public class OrderItem {
 
     private Integer orderId;
     private int productId;
+    private Integer userId;
     private int quantity;
 
     private double unitPrice;
@@ -38,7 +45,6 @@ public class OrderItem {
     private String sugar;       // "Bình Thường",  "Ít Đường"
     private String ice;         // "Bình Thường", "Ít Đá"
     private String orderItemStatus;
-    // Ghi chú thêm của khách (nếu có)
     private String note;
     private boolean isSelected = false;
 
@@ -46,10 +52,12 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(int id, Integer orderId, int productId, int quantity, double unitPrice, double subtotal, String temperature, String size, String sugar, String ice, String orderItemStatus, String note, boolean isSelected) {
+    // constructor mới có userId
+    public OrderItem(int id, Integer orderId, int productId, Integer userId, int quantity, double unitPrice, double subtotal, String temperature, String size, String sugar, String ice, String orderItemStatus, String note, boolean isSelected) {
         this.id = id;
         this.orderId = orderId;
         this.productId = productId;
+        this.userId = userId;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.subtotal = subtotal;
@@ -62,9 +70,10 @@ public class OrderItem {
         this.isSelected = isSelected;
     }
 
-    public OrderItem(Integer orderId, int productId, int quantity, double unitPrice, double subtotal, String temperature, String size, String sugar, String ice, String orderItemStatus, String note, boolean isSelected) {
+    public OrderItem(Integer orderId, int productId, Integer userId, int quantity, double unitPrice, double subtotal, String temperature, String size, String sugar, String ice, String orderItemStatus, String note, boolean isSelected) {
         this.orderId = orderId;
         this.productId = productId;
+        this.userId = userId;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.subtotal = subtotal;
@@ -77,6 +86,7 @@ public class OrderItem {
         this.isSelected = isSelected;
     }
 
+    // 🔹 Getter & Setter
     public int getId() {
         return id;
     }
@@ -99,6 +109,14 @@ public class OrderItem {
 
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public int getQuantity() {

@@ -2,6 +2,7 @@ package com.app.coffeemanagementapplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import static com.app.coffeemanagementapplication.AppConstants.*;
 
 public class MySharePrefers {
     private static final String PER_NAME = "data_app_shared_preference";
@@ -78,6 +79,27 @@ public class MySharePrefers {
     public static void setPaymentMethodId(int paymentMethodId) {
         saveKey("getPaymentMethodId", paymentMethodId);
     }
+    public static void saveLoginInfo(int userId, String roleName) {
+        saveKey(KEY_IS_LOGGED_IN, true);
+        saveKey(KEY_USER_ID, userId);
+        saveKey(KEY_USER_ROLE, roleName);
+    }
+    public static void clearLoginInfo() {
+        saveKey(KEY_IS_LOGGED_IN, false);
+        SharedPreferences.Editor editor = sharePref.edit();
+        editor.remove(KEY_USER_ID);
+        editor.remove(KEY_USER_NAME);
+        editor.remove(KEY_USER_ROLE);
+        editor.apply();
+    }
+    public static boolean isLoggedIn() {
+        return getBoolean(KEY_IS_LOGGED_IN, false);
+    }
+    public static int getCurrentUserId() {
+        return getInt(KEY_USER_ID, -1);
+    }
+    public static String getCurrentUserRole() {
+        return getString(KEY_USER_ROLE, null);
     public static int getDiscountId() {
         return getInt("getDiscountId", -1);
     }

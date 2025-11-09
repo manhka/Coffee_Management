@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.CurrencyUtils;
+import com.app.coffeemanagementapplication.MySharePrefers;
 import com.app.coffeemanagementapplication.databinding.ActivityProductDetailBinding;
 import com.app.coffeemanagementapplication.databinding.CustomToastBinding;
 import com.app.coffeemanagementapplication.models.Feedback;
@@ -60,10 +61,16 @@ public class ProductDetailActivity extends BaseActivity {
         price = product.getPrice();
         double total = quantity * product.getPrice();
         binding.txtTotalPrice.setText(CurrencyUtils.formatVNCurrency(total));
-        double averageRating = feedbackRepo.getAverageRatingByProduct(productId);
+        Float avgObj = feedbackRepo.getAverageRatingByProduct(productId);
+        double averageRating = avgObj == null ? 0.0 : avgObj;
         int numberOfRatings = feedbackRepo.getFeedbackCountByProduct(productId);
         binding.txtRatingValue.setText(String.format("%.1f", averageRating));
         binding.txtRatingCount.setText("(" + numberOfRatings + ")");
+        if (numberOfRatings==0){
+            binding.layoutRating.setVisibility(View.GONE);
+        }else {
+            binding.layoutRating.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -167,6 +174,7 @@ public class ProductDetailActivity extends BaseActivity {
                 finish();
             }
         });
+
         binding.layoutRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,6 +213,8 @@ public class ProductDetailActivity extends BaseActivity {
         item.setIce(ice);
         item.setTemperature(temperature);
         item.setNote(note);
+        int userId= MySharePrefers.getUserId();
+        item.setUserId(userId);
         item.setOrderItemStatus(OrderItemStatus.PENDING.getValue());
         IOrderItemRepo orderItemRepo = new OrderItemService(this);
         orderItemRepo.insertOrderItem(item);

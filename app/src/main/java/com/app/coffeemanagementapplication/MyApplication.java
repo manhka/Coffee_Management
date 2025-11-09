@@ -12,6 +12,7 @@ import com.app.coffeemanagementapplication.models.Payment;
 import com.app.coffeemanagementapplication.models.Product;
 import com.app.coffeemanagementapplication.models.RoleType;
 import com.app.coffeemanagementapplication.models.Users;
+import com.app.coffeemanagementapplication.repositories.IOrderRepo;
 import com.app.coffeemanagementapplication.repositories.ICategoryRepo;
 import com.app.coffeemanagementapplication.repositories.IDiscountRepo;
 import com.app.coffeemanagementapplication.repositories.IFeedbackRepo;
@@ -20,6 +21,7 @@ import com.app.coffeemanagementapplication.repositories.IOrderRepo;
 import com.app.coffeemanagementapplication.repositories.IPaymentRepo;
 import com.app.coffeemanagementapplication.repositories.IProductRepo;
 import com.app.coffeemanagementapplication.repositories.IUserRepo;
+import com.app.coffeemanagementapplication.services.OrderService;
 import com.app.coffeemanagementapplication.services.CategoryService;
 import com.app.coffeemanagementapplication.services.DiscountService;
 import com.app.coffeemanagementapplication.services.FeedbackService;
@@ -51,6 +53,7 @@ public class MyApplication extends Application {
         IFeedbackRepo feedbackRepo = new FeedbackService(this);
         IOrderRepo orderRepo = new OrderService(this);
         IOrderItemRepo orderItemRepo = new OrderItemService(this);
+
         // Chỉ insert nếu DB trống (tránh nhân đôi)
         List<Category> existingCategories = categoryRepo.getAllCategories();
         if (existingCategories == null || existingCategories.isEmpty()) {
@@ -159,7 +162,7 @@ public class MyApplication extends Application {
         ));
     }
 
-    // 🟫 Seed Category
+    // Seed Category
     private void seedCategories(ICategoryRepo categoryRepo) {
         categoryRepo.insertCategory(new Category("Cafe", "Các loại cafe", "", ""));
         categoryRepo.insertCategory(new Category("Trà Sữa", "Trà sữa các vị", "", ""));
@@ -169,7 +172,7 @@ public class MyApplication extends Application {
     private void seedFeedbacks(IFeedbackRepo feedbackRepo) {
         Random random = new Random();
 
-        int userId = 1;   // giả sử userId cố định (hoặc có thể random)
+        int userId = 2;   // giả sử userId cố định (hoặc có thể random)
         int orderId = 1;  // tạm thời gán cố định để tránh lỗi ForeignKey
 
         for (int productId = 1; productId <= 3; productId++) {

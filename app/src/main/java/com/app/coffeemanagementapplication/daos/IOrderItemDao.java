@@ -12,11 +12,11 @@ import java.util.List;
 
 @Dao
 public interface IOrderItemDao {
-    @Query("SELECT * FROM OrderItems where orderItemStatus = :status")
-    List<OrderItem> getAllOrderItemsByStatus(String status);
+    @Query("SELECT * FROM OrderItems where orderItemStatus = :status AND userId = :userId")
+    List<OrderItem> getAllOrderItemsByStatusAndUserId(String status, int userId);
 
-    @Query("SELECT * FROM OrderItems WHERE isSelected = 1 AND orderItemStatus = :status")
-    List<OrderItem> getAllSelectedOrderItemsByStatus(String status);
+    @Query("SELECT * FROM OrderItems WHERE isSelected = 1 AND orderItemStatus = :status AND userId = :userId")
+    List<OrderItem> getAllSelectedOrderItemsByStatusAndUserId(String status, int userId);
 
     @Query("SELECT * FROM OrderItems WHERE orderId = :orderId")
     List<OrderItem> getOrderItemsByOrderId(int orderId);
