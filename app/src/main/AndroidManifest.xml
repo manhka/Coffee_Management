@@ -62,7 +62,10 @@
             android:name=".activities.ProductDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.CustomerHomeActivity"
+            android:name=".activities.DiscountFormActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".activities.AdminHomeActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

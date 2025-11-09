@@ -6,16 +6,19 @@ import android.app.Application;
 import com.app.coffeemanagementapplication.models.Category;
 import com.app.coffeemanagementapplication.models.Discount;
 import com.app.coffeemanagementapplication.models.Feedback;
+import com.app.coffeemanagementapplication.models.Order;
 import com.app.coffeemanagementapplication.models.Payment;
 import com.app.coffeemanagementapplication.models.Product;
 import com.app.coffeemanagementapplication.models.RoleType;
 import com.app.coffeemanagementapplication.models.Users;
+import com.app.coffeemanagementapplication.repositories.IOrderRepo;
 import com.app.coffeemanagementapplication.repositories.ICategoryRepo;
 import com.app.coffeemanagementapplication.repositories.IDiscountRepo;
 import com.app.coffeemanagementapplication.repositories.IFeedbackRepo;
 import com.app.coffeemanagementapplication.repositories.IPaymentRepo;
 import com.app.coffeemanagementapplication.repositories.IProductRepo;
 import com.app.coffeemanagementapplication.repositories.IUserRepo;
+import com.app.coffeemanagementapplication.services.OrderService;
 import com.app.coffeemanagementapplication.services.CategoryService;
 import com.app.coffeemanagementapplication.services.DiscountService;
 import com.app.coffeemanagementapplication.services.FeedbackService;
@@ -43,6 +46,8 @@ public class MyApplication extends Application {
         IPaymentRepo paymentRepo = new PaymentService(this);
         IDiscountRepo discountRepo = new DiscountService(this);
         IFeedbackRepo feedbackRepo = new FeedbackService(this);
+        IOrderRepo orderRepo = new OrderService(this);
+
         // Chỉ insert nếu DB trống (tránh nhân đôi)
         List<Category> existingCategories = categoryRepo.getAllCategories();
         if (existingCategories == null || existingCategories.isEmpty()) {
@@ -68,6 +73,10 @@ public class MyApplication extends Application {
         List<Feedback> feedbackList = feedbackRepo.getAllFeedbacks();
         if (feedbackList == null || feedbackList.isEmpty()) {
             seedFeedbacks(feedbackRepo);
+        }
+        List<Order> orderList = orderRepo.getAllOrders(); // <-- THÊM VÀO 2
+        if (orderList == null || orderList.isEmpty()) { // <-- THÊM VÀO 3
+            seedOrders(orderRepo); // <-- THÊM VÀO 4
         }
     }
 
@@ -250,4 +259,58 @@ public class MyApplication extends Application {
                 "https://cdn.pixabay.com/photo/2020/02/03/07/18/drink-4814956_1280.jpg", true, "", ""));
 
     }
+    private void seedOrders(IOrderRepo orderRepo) {
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        // Tạo đơn với orderDate chỉ còn "yyyy-MM-dd"
+        orderRepo.insertOrder(new Order(
+                1,
+                null,
+                null,
+                today,      // chỉ ngày
+                50000,
+                "CASH",
+                "COMPLETED",
+                "Không có ghi chú",
+                null
+        ));
+
+        orderRepo.insertOrder(new Order(
+                2,
+                null,
+                null,
+                today,
+                120000,
+                "QR",
+                "COMPLETED",
+                "Giao nhanh",
+                null
+        ));
+
+        orderRepo.insertOrder(new Order(
+                1,
+                null,
+                null,
+                today,
+                75000,
+                "E_WALLET",
+                "COMPLETED",
+                "",
+                null
+        ));
+
+        orderRepo.insertOrder(new Order(
+                2,
+                null,
+                null,
+                "2025-11-07", // order ngày khác
+                90000,
+                "CASH",
+                "COMPLETED",
+                "",
+                null
+        ));
+    }
+
+
 }
