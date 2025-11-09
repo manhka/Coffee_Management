@@ -44,8 +44,8 @@ public class OrderService implements IOrderRepo {
     }
 
     @Override
-    public void insertOrder(Order order) {
-        orderDao.insertOrder(order);
+    public long  insertOrder(Order order) {
+        return orderDao.insertOrder(order);
     }
 
     @Override

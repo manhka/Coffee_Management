@@ -278,5 +278,6 @@ public class AddAddressActivity extends BaseActivity {
         toast.show();
         Intent intent = new Intent(AddAddressActivity.this, ChoosingAddressActivity.class);
         startActivity(intent);
+        finish();
     }
 }

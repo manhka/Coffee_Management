@@ -41,6 +41,12 @@
             android:name=".activities.CustomerHomeActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.ProductFeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ChoosingDiscountActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.PaymentMethodActivity"
             android:exported="false" />
         <activity
@@ -55,6 +61,12 @@
         <activity
             android:name=".activities.ProductDetailActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.CustomerHomeActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
     </application>
 

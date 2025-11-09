@@ -20,8 +20,8 @@ public class OrderItemService implements IOrderItemRepo {
     }
 
     @Override
-    public List<OrderItem> getAllOrderItems() {
-        return orderItemDao.getAllOrderItems();
+    public List<OrderItem> getAllOrderItemsByStatusAndUserId(String status, int userId) {
+        return orderItemDao.getAllOrderItemsByStatusAndUserId(status,userId);
     }
 
     @Override
@@ -55,8 +55,18 @@ public class OrderItemService implements IOrderItemRepo {
     }
 
     @Override
-    public List<OrderItem> getAllSelectedOrderItems() {
-        return orderItemDao.getAllSelectedOrderItems();
+    public List<OrderItem> getAllSelectedOrderItemsByStatusAndUserId(String status, int userId) {
+        return orderItemDao.getAllSelectedOrderItemsByStatusAndUserId(status,userId);
+    }
+
+    @Override
+    public void updateSelectedOrderItemStatus(int id, String status) {
+        orderItemDao.updateSelectedOrderItemStatus(id, status);
+    }
+
+    @Override
+    public void updateOrderIdOfSelectedOrderItem(int id, int orderId) {
+        orderItemDao.updateOrderIdOfSelectedOrderItem(id, orderId);
     }
 
 

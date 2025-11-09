@@ -57,12 +57,21 @@ public class MySharePrefers {
         return sharePref.getFloat(key, defaultValue);
     }
 
+    public static void removeKey(String key) {
+        sharePref.edit().remove(key).apply();
+    }
     // ---------- CUSTOM LOGIC ----------
     public static int getAddressId() {
         return getInt("getAddressId", -1);
     }
     public static void setAddressId(int addressId) {
         saveKey("getAddressId", addressId);
+    }
+    public static int getUserId() {
+        return getInt("getUserId", 1);
+    }
+    public static void setUserId(int userId) {
+        saveKey("getUserId", userId);
     }
     public static int getPaymentMethodId() {
         return getInt("getPaymentMethodId", -1);
@@ -91,5 +100,16 @@ public class MySharePrefers {
     }
     public static String getCurrentUserRole() {
         return getString(KEY_USER_ROLE, null);
+    public static int getDiscountId() {
+        return getInt("getDiscountId", -1);
+    }
+    public static void setDiscountId(int discountId) {
+        saveKey("getDiscountId", discountId);
+    }
+    public static float getTotalOrder() {
+        return getFloat("getTotalOrder", -1);
+    }
+    public static void setTotalOrder(float totalOrder) {
+        saveKey("getTotalOrder", totalOrder);
     }
 }

@@ -18,6 +18,12 @@ import androidx.room.PrimaryKey;
                         parentColumns = "id",
                         childColumns = "productId",
                         onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Users.class,
+                        parentColumns = "id",
+                        childColumns = "userId",
+                        onDelete = ForeignKey.CASCADE
                 )
         }
 )
@@ -28,6 +34,7 @@ public class OrderItem {
 
     private Integer orderId;
     private int productId;
+    private Integer userId;
     private int quantity;
 
     private double unitPrice;
@@ -37,18 +44,20 @@ public class OrderItem {
     private String size;        // "Nhỏ", "Vừa", "Lớn"
     private String sugar;       // "Bình Thường",  "Ít Đường"
     private String ice;         // "Bình Thường", "Ít Đá"
-
-    // Ghi chú thêm của khách (nếu có)
+    private String orderItemStatus;
     private String note;
     private boolean isSelected = false;
 
     // 🔹 Constructors
-    public OrderItem() {}
+    public OrderItem() {
+    }
 
-    public OrderItem(int id, Integer orderId, int productId, int quantity, double unitPrice, double subtotal, String temperature, String size, String sugar, String ice, String note, boolean isSelected) {
+    // constructor mới có userId
+    public OrderItem(int id, Integer orderId, int productId, Integer userId, int quantity, double unitPrice, double subtotal, String temperature, String size, String sugar, String ice, String orderItemStatus, String note, boolean isSelected) {
         this.id = id;
         this.orderId = orderId;
         this.productId = productId;
+        this.userId = userId;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.subtotal = subtotal;
@@ -56,15 +65,15 @@ public class OrderItem {
         this.size = size;
         this.sugar = sugar;
         this.ice = ice;
+        this.orderItemStatus = orderItemStatus;
         this.note = note;
         this.isSelected = isSelected;
     }
 
-    public OrderItem(int orderId, int productId, int quantity,
-                     double unitPrice, double subtotal,
-                     String temperature, String size, String sugar, String ice, String note) {
+    public OrderItem(Integer orderId, int productId, Integer userId, int quantity, double unitPrice, double subtotal, String temperature, String size, String sugar, String ice, String orderItemStatus, String note, boolean isSelected) {
         this.orderId = orderId;
         this.productId = productId;
+        this.userId = userId;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.subtotal = subtotal;
@@ -72,20 +81,9 @@ public class OrderItem {
         this.size = size;
         this.sugar = sugar;
         this.ice = ice;
+        this.orderItemStatus = orderItemStatus;
         this.note = note;
-    }
-
-    public OrderItem(String note, String ice, String sugar, String size, String temperature, double subtotal, double unitPrice, int quantity, int productId, int id) {
-        this.note = note;
-        this.ice = ice;
-        this.sugar = sugar;
-        this.size = size;
-        this.temperature = temperature;
-        this.subtotal = subtotal;
-        this.unitPrice = unitPrice;
-        this.quantity = quantity;
-        this.productId = productId;
-        this.id = id;
+        this.isSelected = isSelected;
     }
 
     // 🔹 Getter & Setter
@@ -111,6 +109,14 @@ public class OrderItem {
 
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public int getQuantity() {
@@ -169,6 +175,14 @@ public class OrderItem {
         this.ice = ice;
     }
 
+    public String getOrderItemStatus() {
+        return orderItemStatus;
+    }
+
+    public void setOrderItemStatus(String orderItemStatus) {
+        this.orderItemStatus = orderItemStatus;
+    }
+
     public String getNote() {
         return note;
     }
@@ -176,6 +190,7 @@ public class OrderItem {
     public void setNote(String note) {
         this.note = note;
     }
+
     public boolean isSelected() {
         return isSelected;
     }

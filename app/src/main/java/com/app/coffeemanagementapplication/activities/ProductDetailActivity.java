@@ -8,13 +8,17 @@ import android.widget.Toast;
 
 import com.app.coffeemanagementapplication.BaseActivity;
 import com.app.coffeemanagementapplication.CurrencyUtils;
+import com.app.coffeemanagementapplication.MySharePrefers;
 import com.app.coffeemanagementapplication.databinding.ActivityProductDetailBinding;
 import com.app.coffeemanagementapplication.databinding.CustomToastBinding;
+import com.app.coffeemanagementapplication.models.Feedback;
 import com.app.coffeemanagementapplication.models.OrderItem;
+import com.app.coffeemanagementapplication.models.OrderItemStatus;
 import com.app.coffeemanagementapplication.models.Product;
 import com.app.coffeemanagementapplication.repositories.IFeedbackRepo;
 import com.app.coffeemanagementapplication.repositories.IOrderItemRepo;
 import com.app.coffeemanagementapplication.repositories.IProductRepo;
+import com.app.coffeemanagementapplication.services.FeedbackService;
 import com.app.coffeemanagementapplication.services.OrderItemService;
 import com.app.coffeemanagementapplication.services.ProductService;
 import com.bumptech.glide.Glide;
@@ -35,6 +39,7 @@ public class ProductDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityProductDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        feedbackRepo = new FeedbackService(this);
         binding.imvBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +61,16 @@ public class ProductDetailActivity extends BaseActivity {
         price = product.getPrice();
         double total = quantity * product.getPrice();
         binding.txtTotalPrice.setText(CurrencyUtils.formatVNCurrency(total));
-
+        Float avgObj = feedbackRepo.getAverageRatingByProduct(productId);
+        double averageRating = avgObj == null ? 0.0 : avgObj;
+        int numberOfRatings = feedbackRepo.getFeedbackCountByProduct(productId);
+        binding.txtRatingValue.setText(String.format("%.1f", averageRating));
+        binding.txtRatingCount.setText("(" + numberOfRatings + ")");
+        if (numberOfRatings==0){
+            binding.layoutRating.setVisibility(View.GONE);
+        }else {
+            binding.layoutRating.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -150,7 +164,7 @@ public class ProductDetailActivity extends BaseActivity {
                 }
 
                 String note = binding.edtNote.getText().toString();
-                addToCart(product, currentQuantity, size, sugar, ice, temperature,note);
+                addToCart(product, currentQuantity, size, sugar, ice, temperature, note);
                 CustomToastBinding binding = CustomToastBinding.inflate(getLayoutInflater());
                 binding.toastText.setText("Thêm vào giỏ hàng thành công!");
                 Toast toast = new Toast(getApplicationContext());
@@ -161,6 +175,14 @@ public class ProductDetailActivity extends BaseActivity {
             }
         });
 
+        binding.layoutRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductDetailActivity.this, ProductFeedbackActivity.class);
+                intent.putExtra("productId", product.getId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateButtonState(int quantity) {
@@ -191,6 +213,9 @@ public class ProductDetailActivity extends BaseActivity {
         item.setIce(ice);
         item.setTemperature(temperature);
         item.setNote(note);
+        int userId= MySharePrefers.getUserId();
+        item.setUserId(userId);
+        item.setOrderItemStatus(OrderItemStatus.PENDING.getValue());
         IOrderItemRepo orderItemRepo = new OrderItemService(this);
         orderItemRepo.insertOrderItem(item);
     }

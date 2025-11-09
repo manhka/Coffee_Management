@@ -8,6 +8,7 @@ import com.app.coffeemanagementapplication.daos.IFeedbackDao;
 import com.app.coffeemanagementapplication.models.Feedback;
 import com.app.coffeemanagementapplication.repositories.IFeedbackRepo;
 
+import java.util.Collections;
 import java.util.List;
 
 public class FeedbackService implements IFeedbackRepo {
@@ -22,28 +23,27 @@ public class FeedbackService implements IFeedbackRepo {
 
 
     @Override
-    public List<Feedback> getAllFeedbacks() {
-        return feedbackDao.getAllFeedbacks();
-    }
-
-    @Override
     public void insertFeedback(Feedback feedback) {
         feedbackDao.insertFeedback(feedback);
     }
 
     @Override
-    public Float getAverageRatingByProduct(int productId) {
-        Float avg = feedbackDao.getAverageRatingByProduct(productId);
-        return avg != null ? avg : 0f;
-    }
-
-    @Override
-    public int getFeedbackCountByProduct(int productId) {
-        return feedbackDao.getFeedbackCountByProduct(productId);
+    public List<Feedback> getAllFeedbacks() {
+        return feedbackDao.getAllFeedbacks();
     }
 
     @Override
     public List<Feedback> getFeedbackByProductId(int productId) {
         return feedbackDao.getFeedbackByProductId(productId);
+    }
+
+    @Override
+    public Float getAverageRatingByProduct(int productId) {
+        return feedbackDao.getAverageRatingByProduct(productId);
+    }
+
+    @Override
+    public int getFeedbackCountByProduct(int productId) {
+        return feedbackDao.getFeedbackCountByProduct(productId);
     }
 }
