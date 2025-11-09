@@ -28,7 +28,6 @@ public abstract class AppDatabase extends RoomDatabase  {
     public abstract IFeedbackDao feedbackDao();
     public abstract IOrderDao orderDao();
     public abstract ICategoryDao categoryDao();
-
     public abstract IOrderItemDao orderItemDao();
     public abstract IAddressDao addressDao();
     public abstract IUserDao userDao();

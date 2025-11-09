@@ -2,6 +2,8 @@ package com.app.coffeemanagementapplication.services;
 
 import android.content.Context;
 import android.location.Address;
+import android.util.Log;
+
 
 import com.app.coffeemanagementapplication.AppDatabase;
 import com.app.coffeemanagementapplication.DatabaseClient;
@@ -46,6 +48,11 @@ public class AddressService implements IAddressRepo {
     }
 
     @Override
+    public void updateAddress(ShippingAddress address) {
+
+    }
+
+    @Override
     public void clearDefaultAddress(int userId) {
         addressDao.clearDefaultAddress(userId);
     }
@@ -54,5 +61,15 @@ public class AddressService implements IAddressRepo {
     public void setDefaultAddress(int addressId, int userId) {
         addressDao.clearDefaultAddress(userId);
         addressDao.setDefaultAddress(addressId);
+    }
+
+    @Override
+    public ShippingAddress getDefaultAddressByUserId(int userId) {
+        try {
+            return addressDao.getDefaultAddressByUserId(userId);
+        } catch (Exception e) {
+            Log.e("AddressService", "Error getDefaultAddressByUserId", e);
+            return null;
+        }
     }
 }

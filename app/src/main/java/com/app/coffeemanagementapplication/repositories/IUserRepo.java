@@ -5,6 +5,11 @@ import com.app.coffeemanagementapplication.models.Users;
 import java.util.List;
 
 public interface IUserRepo {
+
+    interface UserCallback<T> {
+        void onComplete(T result);
+    }
+
     void insertUser(Users user);
 
     // Thêm nhiều user cùng lúc
