@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.app.coffeemanagementapplication.R;
 import com.app.coffeemanagementapplication.fragments.AdminDashboardFragment;
 import com.app.coffeemanagementapplication.fragments.DiscountListFragment;
+import com.app.coffeemanagementapplication.fragments.ProductListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AdminHomeActivity extends AppCompatActivity {
@@ -27,6 +28,8 @@ public class AdminHomeActivity extends AppCompatActivity {
                 selectedFragment = new AdminDashboardFragment();
             } else if (id == R.id.nav_discount) {
                 selectedFragment = new DiscountListFragment();
+            } else if (id == R.id.nav_product) {
+                selectedFragment = new ProductListFragment();
             }
 
             if (selectedFragment != null) {
