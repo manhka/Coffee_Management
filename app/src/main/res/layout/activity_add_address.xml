@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="24dp"
+        android:paddingTop="@dimen/padding_large">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imvBtnBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="14dp"
+                android:padding="5dp"
+                android:src="@drawable/back_ic" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Thêm địa chỉ mới"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+
+        <!-- Họ và tên -->
+        <EditText
+            android:id="@+id/edtFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="Họ và tên"
+            android:imeOptions="actionNext"
+            android:padding="12dp"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="20dp"/>
+
+        <!-- Số điện thoại -->
+        <EditText
+            android:id="@+id/edtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="Số điện thoại"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:padding="12dp"
+            android:layout_marginHorizontal="14dp"/>
+
+        <!-- Tỉnh/Thành phố -->
+        <AutoCompleteTextView
+            android:id="@+id/spnProvince"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="Tỉnh/Thành phố"
+            android:padding="12dp"
+            android:layout_marginHorizontal="14dp"/>
+
+        <!-- Quận/Huyện -->
+        <AutoCompleteTextView
+            android:id="@+id/spnDistrict"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="Quận/Huyện"
+            android:padding="12dp"
+            android:layout_marginHorizontal="14dp"/>
+
+        <!-- Phường/Xã -->
+        <AutoCompleteTextView
+            android:id="@+id/spnWard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="Phường/Xã"
+            android:padding="12dp"
+            android:layout_marginHorizontal="14dp"/>
+
+        <!-- Địa chỉ cụ thể -->
+        <EditText
+            android:id="@+id/edtDetailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="Địa chỉ cụ thể (Số nhà, tên đường...)"
+            android:imeOptions="actionDone"
+            android:padding="12dp"
+            android:layout_marginHorizontal="14dp"/>
+        <!-- note -->
+        <EditText
+            android:id="@+id/edtNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="Ghi chú thêm..."
+            android:imeOptions="actionDone"
+            android:padding="12dp"
+            android:layout_marginHorizontal="14dp"/>
+
+        <!-- Nút lưu -->
+        <TextView
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_add_to_cart"
+            android:backgroundTint="@null"
+            android:gravity="center"
+            android:minWidth="160dp"
+            android:paddingHorizontal="12dp"
+            android:text="Lưu"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

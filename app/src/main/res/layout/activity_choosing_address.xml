@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainScroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activities.ChoosingAddressActivity">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnSave"
+        android:paddingBottom="10dp"
+        android:clipToPadding="false"
+       >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_large"
+            >
+            <ImageView
+                android:id="@+id/imvBtnBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="14dp"
+                android:padding="5dp"
+                android:src="@drawable/back_ic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <!-- Tiêu đề -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Địa chỉ giao hàng"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/imvBtnBack"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnAddAddress"
+                />
+
+            <!-- Nút thêm địa chỉ (Icon góc phải trên) -->
+            <ImageView
+                android:id="@+id/btnAddAddress"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_margin="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="6dp"
+                android:src="@drawable/add_ic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/brown" />
+
+            <!-- Danh sách địa chỉ -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvAddresses"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                tools:listitem="@layout/item_address"
+                android:layout_marginTop="20dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+    <TextView
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_add_to_cart"
+        android:backgroundTint="@null"
+        android:gravity="center"
+        android:minWidth="160dp"
+        android:paddingHorizontal="12dp"
+        android:text="Lưu địa chỉ"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="20dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

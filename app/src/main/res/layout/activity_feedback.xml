@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16dp"
+    tools:context=".activities.FeedbackActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đánh giá đơn hàng"        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"/>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ko"
+        />
+
+    <TextView
+        android:id="@+id/tvProductNameFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        tools:text="Tên sản phẩm"/>
+
+    <RatingBar
+        android:id="@+id/ratingBarFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/etFeedbackComment"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:hint="Viết nhận xét của bạn..."
+        android:gravity="top"
+        android:padding="12dp"
+        android:background="@android:drawable/edit_text" />
+
+    <Button
+        android:backgroundTint="#795548"
+
+        android:id="@+id/btnSubmitFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Gửi đánh giá"/>
+
+</LinearLayout>
