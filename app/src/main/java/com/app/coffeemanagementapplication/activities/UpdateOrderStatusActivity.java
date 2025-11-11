@@ -58,7 +58,7 @@ public class UpdateOrderStatusActivity extends BaseActivity {
         // Setup radio button listeners
         setupStatusOptionListener(binding.layoutConfirmed, binding.radioConfirmed, "CONFIRMED");
         setupStatusOptionListener(binding.layoutPreparing, binding.radioPreparing, "PREPARING");
-        setupStatusOptionListener(binding.layoutCompleted, binding.radioCompleted, "COMPLETED");
+        setupStatusOptionListener(binding.layoutCompleted, binding.radioCompleted, "COMPLETE");
         setupStatusOptionListener(binding.layoutDelivered, binding.radioDelivered, "DELIVERED");
 
         binding.btnConfirmUpdate.setOnClickListener(v -> {
@@ -116,35 +116,30 @@ public class UpdateOrderStatusActivity extends BaseActivity {
         int backgroundColor;
         String statusText;
 
-        switch (status) {
-            case "PENDING":
-                backgroundColor = 0xFFFFF3CD;
-                statusText = "⏳ Chờ xác nhận";
-                break;
-            case "PREPARING":
-                backgroundColor = 0xFFE2E3E5;
-                statusText = "👨‍🍳 Đang chuẩn bị";
-                break;
-            case "COMPLETED":
-                backgroundColor = 0xFFD4EDDA;
-                statusText = "✨ Hoàn thành";
-                break;
-            case "DELIVERED":
-                backgroundColor = 0xFFC3E6CB;
-                statusText = "🚚 Đã giao";
-                break;
-            default:
-                backgroundColor = 0xFFF8D7DA;
-                statusText = "❌ Đã hủy";
-                break;
+        if (status.equalsIgnoreCase("PAY")) {
+            backgroundColor = 0xFFFFF3CD;
+            statusText = "⏳ Chờ xác nhận";
+        } else if (status.equalsIgnoreCase("PREPARING")) {
+            backgroundColor = 0xFFE2E3E5;
+            statusText = "👨‍🍳 Đang chuẩn bị";
+        } else if (status.equalsIgnoreCase("COMPLETE")) {
+            backgroundColor = 0xFFD4EDDA;
+            statusText = "✨ Hoàn thành";
+        } else if (status.equalsIgnoreCase("DELIVERED")) {
+            backgroundColor = 0xFFC3E6CB;
+            statusText = "🚚 Đã giao";
+        } else {
+            backgroundColor = 0xFFFFF3CD;
+            statusText = "⏳ Chờ xác nhận";
         }
 
         binding.txtCurrentStatus.setBackgroundColor(backgroundColor);
         binding.txtCurrentStatus.setText(statusText);
-        
+
         String currentTime = new SimpleDateFormat("HH:mm - dd/MM/yyyy", Locale.getDefault()).format(new Date());
         binding.txtStatusTime.setText("Cập nhật lúc: " + currentTime);
     }
+
 
     private void updateOrderStatus() {
         if (currentOrder == null || selectedStatus == null) return;

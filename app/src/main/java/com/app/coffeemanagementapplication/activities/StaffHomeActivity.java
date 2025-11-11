@@ -76,7 +76,7 @@ public class StaffHomeActivity extends BaseActivity {
 
         binding.btnFilterPending.setOnClickListener(v -> {
             setActiveFilter((MaterialButton) v);
-            filterOrders("PENDING");
+            filterOrders("PAY");
         });
 
         binding.btnFilterPreparing.setOnClickListener(v -> {

@@ -14,6 +14,7 @@ public interface IOrderRepo {
     List<Order> getOrdersByStatus(String status);
 
     List<Order> getOrdersByStatusAndUserId(String status, int userId);
+    List<Order> getPayorDeliverOrdersByUserId(int userId);
 
     List<Order> getOrdersByDate(String date);
 

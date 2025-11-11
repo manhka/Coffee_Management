@@ -9,6 +9,7 @@ import com.app.coffeemanagementapplication.models.Order;
 import com.app.coffeemanagementapplication.repositories.IOrderRepo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class OrderService implements IOrderRepo {
@@ -42,6 +43,11 @@ public class OrderService implements IOrderRepo {
     @Override
     public List<Order> getOrdersByStatusAndUserId(String status, int userId) {
         return orderDao.getOrdersByStatusAndUserId(status, userId);
+    }
+
+    @Override
+    public List<Order> getPayorDeliverOrdersByUserId(int userId) {
+        return orderDao.getPayorDeliverOrdersByUserId(userId);
     }
 
     @Override

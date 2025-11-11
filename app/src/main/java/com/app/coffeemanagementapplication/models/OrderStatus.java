@@ -1,11 +1,11 @@
 package com.app.coffeemanagementapplication.models;
 
 public enum OrderStatus {
-    PENDING("pending"),
-    PAY("pay"),
-    PREPARING("preparing"),
-    COMPLETED("completed"),
-    DELIVERED("delivered");
+    PENDING("PENDING"),
+    PAY("PAY"),
+    PREPARING("PREPARING"),
+    COMPLETED("COMPLETED"),
+    DELIVERED("DELIVERED");
 
 
     private final String value;

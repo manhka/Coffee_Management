@@ -58,7 +58,7 @@ public class CompletedOrdersFragment extends Fragment {
 
     private void loadCompletedOrders() {
         int userId = MySharePrefers.getUserId();
-        List<Order> completedOrders = orderRepo.getOrdersByStatusAndUserId(OrderStatus.DELIVERED.getValue(), userId);
+        List<Order> completedOrders = orderRepo.getOrdersByStatusAndUserId(OrderStatus.COMPLETED.getValue(), userId);
 
         adapter = new CompletedOrdersAdapter(getContext(), completedOrders, orderItemRepo, productRepo);
         binding.rvCompletedOrders.setAdapter(adapter);

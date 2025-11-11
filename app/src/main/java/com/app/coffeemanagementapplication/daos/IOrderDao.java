@@ -22,6 +22,9 @@ public interface IOrderDao {
     List<Order> getOrdersByStatus(String status);
     @Query("SELECT * FROM Orders WHERE orderStatus = :status AND userId = :userId")
     List<Order> getOrdersByStatusAndUserId(String status, int userId);
+    @Query("SELECT * FROM Orders WHERE orderStatus NOT IN ('PENDING', 'COMPLETED') AND userId = :userId")
+    List<Order> getPayorDeliverOrdersByUserId(int userId);
+
     @Query("SELECT * FROM Orders WHERE orderDate LIKE :date || '%'")
     List<Order> getOrdersByDate(String date);
     @Query("SELECT SUM(totalAmount) FROM Orders WHERE orderDate LIKE :date || '%'")

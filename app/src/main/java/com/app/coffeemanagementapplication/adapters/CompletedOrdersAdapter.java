@@ -66,6 +66,7 @@ public class CompletedOrdersAdapter extends RecyclerView.Adapter<CompletedOrders
                 // Set OnClickListener to open FeedbackActivity without extras
                 holder.itemView.setOnClickListener(v -> {
                     Intent intent = new Intent(context, FeedbackActivity.class);
+                    intent.putExtra("orderId", order.getId());
                     context.startActivity(intent);
                 });
             }

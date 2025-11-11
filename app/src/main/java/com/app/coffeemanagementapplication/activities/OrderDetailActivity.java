@@ -61,7 +61,6 @@ public class OrderDetailActivity extends BaseActivity {
             binding.rvOrderItems.setLayoutManager(new LinearLayoutManager(this));
             binding.rvOrderItems.setAdapter(adapter);
 
-            updateStatusCheckboxes(order.getOrderStatus());
 
             binding.cbOrderCompleted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -77,7 +76,7 @@ public class OrderDetailActivity extends BaseActivity {
             binding.btnReceiveOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    order.setOrderStatus(OrderStatus.DELIVERED.getValue());
+                    order.setOrderStatus(OrderStatus.COMPLETED.getValue());
                     orderRepo.updateOrder(order);
                     finish();
                 }
@@ -96,9 +95,7 @@ public class OrderDetailActivity extends BaseActivity {
             case COMPLETED:
                 binding.cbOrderCompleted.setChecked(true);
                 break;
-            case PREPARING:
-            case PAY:
-                break;
+
         }
     }
 }

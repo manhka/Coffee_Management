@@ -136,32 +136,26 @@ public class OrderDetailStaffActivity extends BaseActivity {
         String statusTitle;
         String statusDesc;
 
-        switch (status) {
-            case "PENDING":
-                backgroundColor = 0xFFFFF3CD;
-                statusTitle = "⏳ Chờ xác nhận";
-                statusDesc = "Đơn hàng đang chờ được xác nhận";
-                break;
-            case "PREPARING":
-                backgroundColor = 0xFFE2E3E5;
-                statusTitle = "👨‍🍳 Đang chuẩn bị";
-                statusDesc = "Đơn hàng đang được pha chế";
-                break;
-            case "COMPLETED":
-                backgroundColor = 0xFFD4EDDA;
-                statusTitle = "✨ Hoàn thành";
-                statusDesc = "Đơn hàng đã hoàn thành";
-                break;
-            case "DELIVERED":
-                backgroundColor = 0xFFC3E6CB;
-                statusTitle = "🚚 Đã giao";
-                statusDesc = "Đơn hàng đã được giao thành công";
-                break;
-            default:
-                backgroundColor = 0xFFF8D7DA;
-                statusTitle = "❌ Đã hủy";
-                statusDesc = "Đơn hàng đã bị hủy";
-                break;
+        if (status.equalsIgnoreCase("PAY")) {
+            backgroundColor = 0xFFFFF3CD;
+            statusTitle = "⏳ Chờ xác nhận";
+            statusDesc = "Đơn hàng đang chờ được xác nhận";
+        } else if (status.equalsIgnoreCase("PREPARING")) {
+            backgroundColor = 0xFFE2E3E5;
+            statusTitle = "👨‍🍳 Đang chuẩn bị";
+            statusDesc = "Đơn hàng đang được pha chế";
+        } else if (status.equalsIgnoreCase("COMPLETED") || status.equalsIgnoreCase("COMPLETE")) {
+            backgroundColor = 0xFFD4EDDA;
+            statusTitle = "✨ Hoàn thành";
+            statusDesc = "Đơn hàng đã hoàn thành";
+        } else if (status.equalsIgnoreCase("DELIVERED")) {
+            backgroundColor = 0xFFC3E6CB;
+            statusTitle = "🚚 Đã giao";
+            statusDesc = "Đơn hàng đã được giao thành công";
+        } else {
+            backgroundColor = 0xFFFFF3CD;
+            statusTitle = "⏳ Chờ xác nhận";
+            statusDesc = "Đơn hàng đang chờ được xác nhận";
         }
 
         binding.statusBanner.setBackgroundColor(backgroundColor);

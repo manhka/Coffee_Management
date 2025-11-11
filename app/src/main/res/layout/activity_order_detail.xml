@@ -137,6 +137,7 @@
                 android:layout_marginTop="8dp"
                 android:background="#FFF5F5F5"
                 android:padding="8dp"
+                android:checked="false"
                 android:text="Đã nhận được hàng"
                 android:textColor="#333"
                 android:textSize="16sp" />

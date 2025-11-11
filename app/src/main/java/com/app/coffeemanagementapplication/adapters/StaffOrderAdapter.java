@@ -12,6 +12,7 @@ import com.app.coffeemanagementapplication.CurrencyUtils;
 import com.app.coffeemanagementapplication.databinding.ItemStaffOrderBinding;
 import com.app.coffeemanagementapplication.models.Order;
 import com.app.coffeemanagementapplication.models.OrderItem;
+import com.app.coffeemanagementapplication.models.OrderStatus;
 import com.app.coffeemanagementapplication.models.Users;
 import com.app.coffeemanagementapplication.repositories.OrderRepository;
 
@@ -85,38 +86,34 @@ public class StaffOrderAdapter extends RecyclerView.Adapter<StaffOrderAdapter.St
         int textColor;
         String statusText;
 
-        switch (status) {
-            case "PENDING":
-                backgroundColor = 0xFFFFF3CD;
-                textColor = 0xFF856404;
-                statusText = "Chờ xác nhận";
-                break;
-            case "PREPARING":
-                backgroundColor = 0xFFE2E3E5;
-                textColor = 0xFF383D41;
-                statusText = "Đang chuẩn bị";
-                break;
-            case "COMPLETED":
-                backgroundColor = 0xFFD4EDDA;
-                textColor = 0xFF155724;
-                statusText = "Hoàn thành";
-                break;
-            case "DELIVERED":
-                backgroundColor = 0xFFC3E6CB;
-                textColor = 0xFF155724;
-                statusText = "Đã giao";
-                break;
-            default:
-                backgroundColor = 0xFFF8D7DA;
-                textColor = 0xFF721C24;
-                statusText = "Đã hủy";
-                break;
+
+        if (status.equalsIgnoreCase("PAY")) {
+            backgroundColor = 0xFFFFF3CD;
+            textColor = 0xFF856404;
+            statusText = "Chờ xác nhận";
+        } else if (status.equalsIgnoreCase("PREPARING")) {
+            backgroundColor = 0xFFE2E3E5;
+            textColor = 0xFF383D41;
+            statusText = "Đang chuẩn bị";
+        } else if (status.equalsIgnoreCase("COMPLETED") || status.equalsIgnoreCase("COMPLETE")) {
+            backgroundColor = 0xFFD4EDDA;
+            textColor = 0xFF155724;
+            statusText = "Hoàn thành";
+        } else if (status.equalsIgnoreCase("DELIVERED")) {
+            backgroundColor = 0xFFC3E6CB;
+            textColor = 0xFF155724;
+            statusText = "Đã giao";
+        } else {
+            backgroundColor = 0xFFFFF3CD;
+            textColor = 0xFF856404;
+            statusText = "Chờ xác nhận";
         }
 
         holder.binding.txtOrderStatus.setBackgroundColor(backgroundColor);
         holder.binding.txtOrderStatus.setTextColor(textColor);
         holder.binding.txtOrderStatus.setText(statusText);
     }
+
 
     private String getPaymentMethodText(String method) {
         switch (method) {

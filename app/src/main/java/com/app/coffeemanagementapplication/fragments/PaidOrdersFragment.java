@@ -60,8 +60,7 @@ public class PaidOrdersFragment extends Fragment implements PaidOrdersAdapter.On
 
     private void loadPaidOrders() {
         int userId = MySharePrefers.getUserId();
-        List<Order> paidOrders = orderRepo.getOrdersByStatusAndUserId(OrderStatus.PAY.getValue(), userId);
-
+        List<Order> paidOrders = orderRepo.getPayorDeliverOrdersByUserId(userId);
         adapter = new PaidOrdersAdapter(getContext(), paidOrders, orderItemRepo, productRepo, this);
         binding.rvPaidOrders.setAdapter(adapter);
     }

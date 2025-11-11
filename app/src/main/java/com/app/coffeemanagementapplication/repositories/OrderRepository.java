@@ -39,6 +39,11 @@ public class OrderRepository implements IOrderRepo {
     }
 
     @Override
+    public List<Order> getPayorDeliverOrdersByUserId(int userId) {
+        return orderDao.getPayorDeliverOrdersByUserId(userId);
+    }
+
+    @Override
     public List<Order> getOrdersByDate(String date) {
         return orderDao.getOrdersByDate(date);
     }

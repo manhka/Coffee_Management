@@ -37,7 +37,10 @@ import com.app.coffeemanagementapplication.services.OrderService;
 import com.app.coffeemanagementapplication.services.PaymentService;
 import com.app.coffeemanagementapplication.services.ProductService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PaymentOrderActivity extends BaseActivity {
     private PaymentOrderAdapter adapter;
@@ -191,6 +194,9 @@ public class PaymentOrderActivity extends BaseActivity {
                 order.setNote(binding.edtNote.getText().toString());
                 order.setOrderDate(String.valueOf(System.currentTimeMillis()));
                 order.setTotalAmount(totalMoney);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String formattedDate = sdf.format(new Date());
+                order.setOrderDate(formattedDate);
                 long orderId = orderRepo.insertOrder(order);
                 order.setId((int) orderId);
                 for (OrderItem orderItem : selectedPendingOrderItem) {
